@@ -4,6 +4,58 @@
   
     
     <entry>
+      <title>Java开发环境搭建</title>
+      <link href="/2021/12/26/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <url>/2021/12/26/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Java开发环境搭建"><a href="#Java开发环境搭建" class="headerlink" title="Java开发环境搭建"></a>Java开发环境搭建</h1><p>这里只介绍<code>window</code>环境下的<code>Jdk</code>安装配置、Linux以及Mac的后面补充</p><h2 id="1、Jdk简介"><a href="#1、Jdk简介" class="headerlink" title="1、Jdk简介"></a>1、Jdk简介</h2><blockquote><p>Jdk全称（java development kit）,及java标准开发包。</p><blockquote><p>JDK是 <a href="https://baike.baidu.com/item/Java/85979">Java</a> 语言的<a href="https://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8C%85/10418833">软件开发工具包</a>主要用于<a href="https://baike.baidu.com/item/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87/9157757">移动设备</a>、<a href="https://baike.baidu.com/item/%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%AE%BE%E5%A4%87/10055189">嵌入式设备</a>上的java应用程序。JDK是整个java开发的核心，它包含了JAVA的运行环境（JVM+Java系统类库）和JAVA工具。</p><blockquote><p>Jdk中包含了Jre(Java Runtime Envirnment)【java运行环境】、java工具和java开发所需的一些基础类库（及JavaApi 包括rt.jar）</p></blockquote></blockquote></blockquote><h2 id="2、Jdk下载"><a href="#2、Jdk下载" class="headerlink" title="2、Jdk下载"></a>2、Jdk下载</h2><p><a href="https://www.oracle.com/java/technologies/downloads/">官网</a></p><p>​        根据自己电脑的配置<code>32/64位</code>等选择版本下载。个人使用的jdk1.8_211版本，如果需要可以下载，下面是连接</p><p>链接：<a href="https://pan.baidu.com/s/16wOSHaTDmol25wVDLNgy6A">https://pan.baidu.com/s/16wOSHaTDmol25wVDLNgy6A</a><br> 提取码：fd8j</p><h2 id="3、jdk的安装"><a href="#3、jdk的安装" class="headerlink" title="3、jdk的安装"></a>3、jdk的安装</h2><p>​      双击下载好的exe软件，一路下一步默认安装、安装过程中也可以根据需要选择安装路径</p><h2 id="4、环境变量配置"><a href="#4、环境变量配置" class="headerlink" title="4、环境变量配置"></a>4、环境变量配置</h2><p><strong>右击此电脑&gt;属性&gt;高级系统设置&gt;环境变量</strong></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20211201085153585.png" alt="image-20211201085153585"></p><h3 id="1、新建JAVA-HOME"><a href="#1、新建JAVA-HOME" class="headerlink" title="1、新建JAVA_HOME"></a>1、新建JAVA_HOME</h3><p><strong>系统变量中点击新建按钮</strong></p><p>输入：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">变量名：JAVA_HOME</span><br><span class="line">变量值：安装jdk的路径</span><br></pre></td></tr></table></figure><p>示范：</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20211201085651886.png" alt="image-20211201085651886"></p><h3 id="2、新建CLASSPATH"><a href="#2、新建CLASSPATH" class="headerlink" title="2、新建CLASSPATH"></a>2、新建CLASSPATH</h3><p><strong>系统变量中新建，注意前面的<code>.</code>不要忽略</strong></p><p>输入：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">变量名：CLASSPATH</span><br><span class="line">变量值：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;</span><br></pre></td></tr></table></figure><p>示范：</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20211201090328307.png" alt="image-20211201090328307"></p><h3 id="3、修改Path变量"><a href="#3、修改Path变量" class="headerlink" title="3、修改Path变量"></a>3、修改Path变量</h3><p><strong>找到path点击编辑&gt;新建两条</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">%JAVA_HOME%\bin</span><br><span class="line">%JAVA_HOME%\jre\bin</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20211201090342556.png" alt="image-20211201090342556"></p><p><strong>所有配置完成后确认</strong></p><h3 id="4、测试是否成功"><a href="#4、测试是否成功" class="headerlink" title="4、测试是否成功"></a>4、测试是否成功</h3><p>打开命令提示符窗口、快捷键win+R输入cmd打开</p><p>输入java、java -version出现信息表示安装成功</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20211203224300895.png" alt="image-20211203224300895"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 环境配置 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> 环境配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>搜狗输入法自动创建Page Front-matter</title>
+      <link href="/2021/12/26/Hexo/%E6%90%9C%E7%8B%97%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BAPage-Front-matter/"/>
+      <url>/2021/12/26/Hexo/%E6%90%9C%E7%8B%97%E8%BE%93%E5%85%A5%E6%B3%95%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BAPage-Front-matter/</url>
+      
+        <content type="html"><![CDATA[<h1 id="搜狗输入法自动创建Page-Front-matter"><a href="#搜狗输入法自动创建Page-Front-matter" class="headerlink" title="搜狗输入法自动创建Page Front-matter"></a>搜狗输入法自动创建Page Front-matter</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CTFd+CTFd-whale动态靶场搭建</title>
       <link href="/2021/12/25/CTFd+CTFd-whale%E5%8A%A8%E6%80%81%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA/"/>
       <url>/2021/12/25/CTFd+CTFd-whale%E5%8A%A8%E6%80%81%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA/</url>
