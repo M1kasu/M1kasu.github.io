@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>暴力破解（Brute_Force） | Mikasu's Blog</title><meta name="keywords" content="Web,dvwa,暴力破解"><meta name="author" content="Mikasu,1967458972@qq.com"><meta name="copyright" content="Mikasu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referer" content="no-referer"><meta name="description" content="暴力破解（Brute_Force）暴力破解介绍使用攻击者准备的自己的用户名和密码，一个一个枚举，尝试是否能登陆 理论来说，字典够大，就能破解 环境准备环境：phpstudy和dvwa 工具：burp suite 这里省略安装。。 可参考这个过程 https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42045038&#x2F;article&#x2F;details&#x2F;81586016 low级别进入dvwa，设置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="暴力破解（Brute_Force）">
+<meta property="og:url" content="https://www.yuyapeng.cn/2022/01/19/CTF/Web/dvwa/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%EF%BC%88Brute_Force%EF%BC%89/index.html">
+<meta property="og:site_name" content="Mikasu&#39;s Blog">
+<meta property="og:description" content="暴力破解（Brute_Force）暴力破解介绍使用攻击者准备的自己的用户名和密码，一个一个枚举，尝试是否能登陆 理论来说，字典够大，就能破解 环境准备环境：phpstudy和dvwa 工具：burp suite 这里省略安装。。 可参考这个过程 https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42045038&#x2F;article&#x2F;details&#x2F;81586016 low级别进入dvwa，设置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/912355.jpg">
+<meta property="article:published_time" content="2022-01-19T03:20:34.000Z">
+<meta property="article:modified_time" content="2022-01-19T03:21:28.838Z">
+<meta property="article:author" content="Mikasu">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="dvwa">
+<meta property="article:tag" content="暴力破解">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/912355.jpg"><link rel="shortcut icon" href="https://gitee.com/littlefiremonkey/picture/raw/master/index.png"><link rel="canonical" href="https://www.yuyapeng.cn/2022/01/19/CTF/Web/dvwa/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%EF%BC%88Brute_Force%EF%BC%89/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '暴力破解（Brute_Force）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-19 11:21:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/912355.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mikasu's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">暴力破解（Brute_Force）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-19T03:20:34.000Z" title="发表于 2022-01-19 11:20:34">2022-01-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-19T03:21:28.838Z" title="更新于 2022-01-19 11:21:28">2022-01-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="暴力破解（Brute_Force）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="暴力破解（Brute-Force）"><a href="#暴力破解（Brute-Force）" class="headerlink" title="暴力破解（Brute_Force）"></a>暴力破解（Brute_Force）</h1><h1 id="暴力破解介绍"><a href="#暴力破解介绍" class="headerlink" title="暴力破解介绍"></a>暴力破解介绍</h1><p>使用攻击者准备的自己的用户名和密码，一个一个枚举，尝试是否能登陆</p>
+<p>理论来说，字典够大，就能破解</p>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>环境：phpstudy和dvwa</p>
+<p>工具：burp suite</p>
+<p>这里省略安装。。</p>
+<p>可参考这个过程</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42045038/article/details/81586016">https://blog.csdn.net/weixin_42045038/article/details/81586016</a></p>
+<h2 id="low级别"><a href="#low级别" class="headerlink" title="low级别"></a>low级别</h2><p>进入dvwa，设置为low难度</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119104044105.png" alt="image-20220119104044105"></p>
+<p>然后进入brute Force板块</p>
+<h3 id="分析源码"><a href="#分析源码" class="headerlink" title="分析源码"></a>分析源码</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( <span class="variable">$_GET</span>[ <span class="string">&#x27;Login&#x27;</span> ] ) ) &#123;<span class="comment">//是否提交了login参数</span></span><br><span class="line">    <span class="comment">// Get username</span></span><br><span class="line">    <span class="variable">$user</span> = <span class="variable">$_GET</span>[ <span class="string">&#x27;username&#x27;</span> ];<span class="comment">//接受usename传给user</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get password</span></span><br><span class="line">    <span class="variable">$pass</span> = <span class="variable">$_GET</span>[ <span class="string">&#x27;password&#x27;</span> ];<span class="comment">//接受password传给pass</span></span><br><span class="line">    <span class="variable">$pass</span> = md5( <span class="variable">$pass</span> );<span class="comment">//给passmd5加密</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check the database</span></span><br><span class="line">    <span class="variable">$query</span>  = <span class="string">&quot;SELECT * FROM `users` WHERE user = &#x27;<span class="subst">$user</span>&#x27; AND password = &#x27;<span class="subst">$pass</span>&#x27;;&quot;</span>;<span class="comment">//sql语句查询，从users表里面查询所有user=‘user’并且password=‘pass’的值</span></span><br><span class="line">    <span class="variable">$result</span> = mysqli_query(<span class="variable">$GLOBALS</span>[<span class="string">&quot;___mysqli_ston&quot;</span>],  <span class="variable">$query</span> ) <span class="keyword">or</span> <span class="keyword">die</span>( <span class="string">&#x27;&lt;pre&gt;&#x27;</span> .((is_object(<span class="variable">$GLOBALS</span>[<span class="string">&quot;___mysqli_ston&quot;</span>])) ? mysqli_error(<span class="variable">$GLOBALS</span>[<span class="string">&quot;___mysqli_ston&quot;</span>]) : ((<span class="variable">$___mysqli_res</span> = mysqli_connect_error()) ? <span class="variable">$___mysqli_res</span> : <span class="literal">false</span>)) . <span class="string">&#x27;&lt;/pre&gt;&#x27;</span> );<span class="comment">//连接错误，或者没有设置连接就会报错</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( <span class="variable">$result</span> &amp;&amp; mysqli_num_rows( <span class="variable">$result</span> ) == <span class="number">1</span> ) &#123;<span class="comment">//结果存在并且行数等于一</span></span><br><span class="line">        <span class="comment">// Get users details</span></span><br><span class="line">        <span class="variable">$row</span>    = mysqli_fetch_assoc( <span class="variable">$result</span> );<span class="comment">//结果集中取得一行作为关联数组放在row里面</span></span><br><span class="line">        <span class="variable">$avatar</span> = <span class="variable">$row</span>[<span class="string">&quot;avatar&quot;</span>];<span class="comment">//row的avatar下标</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Login successful</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;&lt;p&gt;Welcome to the password protected area <span class="subst">&#123;$user&#125;</span>&lt;/p&gt;&quot;</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;&lt;img src=\&quot;<span class="subst">&#123;$avatar&#125;</span>\&quot; /&gt;&quot;</span>;<span class="comment">//输出avatar对应的图片</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Login failed</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;&quot;</span>;</span><br><span class="line">    &#125;<span class="comment">//如果验证失败就会返回登录失败</span></span><br><span class="line"></span><br><span class="line">    ((is_null(<span class="variable">$___mysqli_res</span> = mysqli_close(<span class="variable">$GLOBALS</span>[<span class="string">&quot;___mysqli_ston&quot;</span>]))) ? <span class="literal">false</span> : <span class="variable">$___mysqli_res</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span> <span class="comment">//没有提交login参数就不执行任何操作</span></span><br></pre></td></tr></table></figure>
+
+<p>获取用户名、密码（md5加密）、使用数据库查询语句进行数据库查询、结果判断是否存在</p>
+<p>判断语句：如果查询结果在数据库中存在，得到用户详细信息，显示welcome……，否则返回用户名和（或）密码错误。</p>
+<p>从源码中发现对**$user**没有做任何过滤，存在明显的sql注入漏洞；</p>
+<p>而**$pass**设置了md5加密算法，杜绝了通过参数password进行sql注入的可能性。</p>
+<h3 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h3><p>随便输入账号密码</p>
+<p>brup代理拦截</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119105055180.png" alt="image-20220119105055180"></p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119105153816.png" alt="image-20220119105153816"></p>
+<p>点击action选择send to intruder（发送到爆破模块）</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119105336528.png" alt="image-20220119105336528"></p>
+<p>进入到intruder模块</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119105927076.png" alt="image-20220119105927076"></p>
+<p><strong>这里拓展一下attack type</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">第一种：</span><br><span class="line">Sniper标签 这个是我们最常用的，Sniper是狙击手的意思。这个模式会使用单一的payload【就是导入字典的payload】组。它会针对每个position中$$位置设置payload。这种攻击类型适合对常见漏洞中的请求参数单独地进行测试。攻击中的请求总数应该是position数量和payload数量的乘积。</span><br><span class="line"></span><br><span class="line">第二种：</span><br><span class="line">Battering ram – 这一模式是使用单一的payload组。它会重复payload并且一次把所有相同的payload放入指定的位置中。这种攻击适合那种需要在请求中把相同的输入放到多个位置的情况。请求的总数是payload组中payload的总数。简单说就是一个playload字典同时应用到多个position中</span><br><span class="line"></span><br><span class="line">第三种：</span><br><span class="line">Pitchfork – 这一模式是使用多个payload组。对于定义的位置可以使用不同的payload组。攻击会同步迭代所有的payload组，把payload放入每个定义的位置中。比如：position中A处有a字典，B处有b字典，则a【1】将会对应b【1】进行attack处理，这种攻击类型非常适合那种不同位置中需要插入不同但相关的输入的情况。请求的数量应该是最小的payload组中的payload数量</span><br><span class="line"></span><br><span class="line">第四种：</span><br><span class="line">Cluster bomb – 这种模式会使用多个payload组。每个定义的位置中有不同的payload组。攻击会迭代每个payload组，每种payload组合都会被测试一遍。比如：position中A处有a字典，B处有b字典，则两个字典将会循环搭配组合进行attack处理这种攻击适用于那种位置中需要不同且不相关或者未知的输入的攻击。攻击请求的总数是各payload组中payload数量的乘积。</span><br></pre></td></tr></table></figure>
+
+<p>$符号包裹住的内容是攻击目标，点击clear先清除它自动选中的目标</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110001254.png" alt="image-20220119110001254"></p>
+<p>然后添加攻击目标，这里为了提高爆破速度，假设用户名username已知，只针对密码password进行爆破。</p>
+<p>先选中password，然后点击add$</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110158087.png" alt="image-20220119110158087"></p>
+<p>添加payload（测试的密码）</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110517628.png" alt="image-20220119110517628"></p>
+<p>payload类型可以选择simple list，然后点击add from list-&gt;选择passwords类型</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110618230.png" alt="image-20220119110618230"></p>
+<p>可以看到下图红框内有东西就说明添加成功</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110736623.png" alt="image-20220119110736623"></p>
+<p>设置线程，网络失败重试多少次，多少秒重试，按照自己电脑性能调试，一般默认就行。</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110326207.png" alt="image-20220119110326207"></p>
+<p>点击start attack</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110423964.png" alt="image-20220119110423964"></p>
+<p>点length，按响应长度排序</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119110934379.png" alt="image-20220119110934379"></p>
+<p>一般不一样的那个就是正确破解的，可以看到只有password是4603,，其他都是4560</p>
+<p>还可以点开查看响应报文或者直接render浏览器渲染一下结果</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119111138739.png" alt="image-20220119111138739"></p>
+<p>可以看出登录成功了</p>
+<p>说明这里爆破出密码是password</p>
+<p>试了试果然可以</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119111242680.png" alt="image-20220119111242680"></p>
+<h3 id="补充：SQL注入"><a href="#补充：SQL注入" class="headerlink" title="补充：SQL注入"></a>补充：SQL注入</h3><p>手工sql注入</p>
+<p>payload</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&#x27; or &#x27;1&#x27;=&#x27;1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119111535087.png" alt="image-20220119111535087"></p>
+<p>可以看到登陆成功</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119111608262.png" alt="image-20220119111608262"></p>
+<p>注入成功</p>
+<p>原理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select name from &#x27;users&#x27; where name=&#x27;admin&#x27; or &#x27;1&#x27;=&#x27;1&#x27;</span><br><span class="line">1=1 永远为真</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<p>payload</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&#x27; #</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119111820713.png" alt="image-20220119111820713"></p>
+<p>注入成功</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220119111831928.png" alt="image-20220119111831928"></p>
+<p>原理：# 为注释 后面均无效</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1967458972@qq.com">Mikasu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.yuyapeng.cn/2022/01/19/CTF/Web/dvwa/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%EF%BC%88Brute_Force%EF%BC%89/">https://www.yuyapeng.cn/2022/01/19/CTF/Web/dvwa/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%EF%BC%88Brute_Force%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.yuyapeng.cn" target="_blank">Mikasu's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web/">Web</a><a class="post-meta__tags" href="/tags/dvwa/">dvwa</a><a class="post-meta__tags" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">暴力破解</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/littlefiremonkey/picture/raw/master/912355.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/12/29/Hexo/%E4%BB%8E0%E5%88%B01%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/"><img class="next-cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">从0到1部署Hexo博客</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/25/CTF/Web/CTF/" title="CTF"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/672183.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-25</div><div class="title">CTF</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mikasu</div><div class="author-info__description">大三学生，CTFer</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/M1kasu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/M1kasu" target="_blank" title=""><i class="iconfont  icon-github"></i></a><a class="social-icon" href="https://space.bilibili.com/399414396/" target="_blank" title=""><i class="iconfont  icon-bilibili"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1967458972" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="mailto:1967458972@qq.com" target="_blank" title=""><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://blog.csdn.net/memery_key" target="_blank" title=""><i class="iconfont icon-csdn"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问小站，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%EF%BC%88Brute-Force%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">暴力破解（Brute_Force）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">暴力破解介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#low%E7%BA%A7%E5%88%AB"><span class="toc-number">3.1.</span> <span class="toc-text">low级别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81"><span class="toc-number">3.1.1.</span> <span class="toc-text">分析源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95"><span class="toc-number">3.1.2.</span> <span class="toc-text">漏洞测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9ASQL%E6%B3%A8%E5%85%A5"><span class="toc-number">3.1.3.</span> <span class="toc-text">补充：SQL注入</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/19/CTF/Web/dvwa/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%EF%BC%88Brute_Force%EF%BC%89/" title="暴力破解（Brute_Force）"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/912355.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="暴力破解（Brute_Force）"/></a><div class="content"><a class="title" href="/2022/01/19/CTF/Web/dvwa/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%EF%BC%88Brute_Force%EF%BC%89/" title="暴力破解（Brute_Force）">暴力破解（Brute_Force）</a><time datetime="2022-01-19T03:20:34.000Z" title="发表于 2022-01-19 11:20:34">2022-01-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/29/Hexo/%E4%BB%8E0%E5%88%B01%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/" title="从0到1部署Hexo博客"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从0到1部署Hexo博客"/></a><div class="content"><a class="title" href="/2021/12/29/Hexo/%E4%BB%8E0%E5%88%B01%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/" title="从0到1部署Hexo博客">从0到1部署Hexo博客</a><time datetime="2021-12-29T09:18:46.000Z" title="发表于 2021-12-29 17:18:46">2021-12-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/28/Hexo/Typora%20+%20PicGo%20+%20Gitee%20%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%88%B0%E5%9B%BE%E5%BA%8A/" title="Typora + PicGo + Gitee 实现图片自动上传到图床"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/912355.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Typora + PicGo + Gitee 实现图片自动上传到图床"/></a><div class="content"><a class="title" href="/2021/12/28/Hexo/Typora%20+%20PicGo%20+%20Gitee%20%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%88%B0%E5%9B%BE%E5%BA%8A/" title="Typora + PicGo + Gitee 实现图片自动上传到图床">Typora + PicGo + Gitee 实现图片自动上传到图床</a><time datetime="2021-12-28T04:23:26.000Z" title="发表于 2021-12-28 12:23:26">2021-12-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/28/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/kali%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" title="kali安装和配置"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="kali安装和配置"/></a><div class="content"><a class="title" href="/2021/12/28/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/kali%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" title="kali安装和配置">kali安装和配置</a><time datetime="2021-12-28T04:01:42.000Z" title="发表于 2021-12-28 12:01:42">2021-12-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/28/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/vmware16%E5%AE%89%E8%A3%85/" title="vmware16安装"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vmware16安装"/></a><div class="content"><a class="title" href="/2021/12/28/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/vmware16%E5%AE%89%E8%A3%85/" title="vmware16安装">vmware16安装</a><time datetime="2021-12-28T04:00:14.000Z" title="发表于 2021-12-28 12:00:14">2021-12-28</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/912355.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mikasu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
