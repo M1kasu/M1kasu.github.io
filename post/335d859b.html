@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>4、基础入门-WEB源码拓展 | Mikasu's Blog</title><meta name="keywords" content="基础入门"><meta name="author" content="Mikasu,1967458972@qq.com"><meta name="copyright" content="Mikasu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referer" content="no-referer"><meta name="description" content="4、基础入门-WEB源码拓展前言WEB源码在安全测试中是非常重要的信息来源，可以用来代码审计漏洞也可以用来做信息突破口，其中WEB源码有很多技术需要简明分析。 比如：获取某ASP源码后可采用默认数据库下载为突破，获取某其他脚本源码漏洞可以进行代码审计挖掘分析其业务逻辑等，总之源码的获取将为后期的安全测试提供了更多的思路。 关于WEB源码目录结构 数据库配置文件，后台目录，模板目录，数据库目录等 i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4、基础入门-WEB源码拓展">
+<meta property="og:url" content="https://www.yuyapeng.cn/post/335d859b.html">
+<meta property="og:site_name" content="Mikasu&#39;s Blog">
+<meta property="og:description" content="4、基础入门-WEB源码拓展前言WEB源码在安全测试中是非常重要的信息来源，可以用来代码审计漏洞也可以用来做信息突破口，其中WEB源码有很多技术需要简明分析。 比如：获取某ASP源码后可采用默认数据库下载为突破，获取某其他脚本源码漏洞可以进行代码审计挖掘分析其业务逻辑等，总之源码的获取将为后期的安全测试提供了更多的思路。 关于WEB源码目录结构 数据库配置文件，后台目录，模板目录，数据库目录等 i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg">
+<meta property="article:published_time" content="2022-01-26T11:21:41.000Z">
+<meta property="article:modified_time" content="2022-01-26T11:21:58.903Z">
+<meta property="article:author" content="Mikasu">
+<meta property="article:tag" content="基础入门">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg"><link rel="shortcut icon" href="https://gitee.com/littlefiremonkey/picture/raw/master/index.png"><link rel="canonical" href="https://www.yuyapeng.cn/post/335d859b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '4、基础入门-WEB源码拓展',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-26 19:21:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mikasu's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">4、基础入门-WEB源码拓展</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-26T11:21:41.000Z" title="发表于 2022-01-26 19:21:41">2022-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-26T11:21:58.903Z" title="更新于 2022-01-26 19:21:58">2022-01-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="4、基础入门-WEB源码拓展"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="4、基础入门-WEB源码拓展"><a href="#4、基础入门-WEB源码拓展" class="headerlink" title="4、基础入门-WEB源码拓展"></a>4、基础入门-WEB源码拓展</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>WEB源码在安全测试中是非常重要的信息来源，可以用来代码审计漏洞也可以用来做信息突破口，其中WEB源码有很多技术需要简明分析。</p>
+<p>比如：获取某ASP源码后可采用默认数据库下载为突破，获取某其他脚本源码漏洞可以进行代码审计挖掘分析其业务逻辑等，总之源码的获取将为后期的安全测试提供了更多的思路。</p>
+<h1 id="关于WEB源码目录结构"><a href="#关于WEB源码目录结构" class="headerlink" title="关于WEB源码目录结构"></a>关于WEB源码目录结构</h1><p> 数据库配置文件，后台目录，模板目录，数据库目录等<br> index.php 根据文件后缀判定<br> admin 网站后台路径data 数据相关目录<br> install 安装目录<br> member 会员目录<br> template 模板目录(和网站相关的整体架构)<br> data =&gt; confing.php 数据库配置文件，网站和数据库的通讯信息，连接账号密码，可以去连接对方数据库，从数据库去得到这个网站的源码里面涉及到的管理员的账号密码。</p>
+<h1 id="关于WEB源码脚本类型"><a href="#关于WEB源码脚本类型" class="headerlink" title="关于WEB源码脚本类型"></a>关于WEB源码脚本类型</h1><p>ASP,PHP,ASPX,JSP,JAVAWEB等脚本类型源码安全问题</p>
+<h1 id="关于WEB源码应用分类"><a href="#关于WEB源码应用分类" class="headerlink" title="关于WEB源码应用分类"></a>关于WEB源码应用分类</h1><p> 社交，论坛，门户，第三方，博客等不同的代码机制对应漏洞<br> 开源，未开源问题， 框架非框架问题，关于CMS识别问题及后续等<br> 拿到对方的源码或者判断这个网站的应用类型之后应该侧重在哪些漏洞上做文章<br> • 门户网站————————综合类漏洞<br> • 电商——————————业务逻辑漏洞<br> • 论坛——————————XSS漏洞<br> • 博客——————————漏洞较少<br> • 第三方—————————根据功能决定</p>
+<h1 id="关于WEB源码其他说明"><a href="#关于WEB源码其他说明" class="headerlink" title="关于WEB源码其他说明"></a>关于WEB源码其他说明</h1><h2 id="1-框架漏洞或代码漏洞"><a href="#1-框架漏洞或代码漏洞" class="headerlink" title="1.框架漏洞或代码漏洞"></a>1.框架漏洞或代码漏洞</h2><p>如果对方网站采用的是框架开发的话那么你面对的就是寻找框架的漏洞，如果是非框架的话寻找的漏洞针对的是代码写出来的漏洞（代码审计）</p>
+<p>比如：thinkPHP漏洞</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/1626009190298-57d7e641-1b78-4395-893b-e5cbfea8e59c.png" alt="img"></p>
+<h2 id="2-CMS识别"><a href="#2-CMS识别" class="headerlink" title="2.CMS识别"></a>2.CMS识别</h2><h3 id="1）概念："><a href="#1）概念：" class="headerlink" title="1）概念："></a>1）概念：</h3><p>（1）CMS识别：判定一个网站是用什么程序搭建的</p>
+<p>（2）CMS是Content Management System的缩写，意为”内容管理系统”。 内容管理系统是企业信息化建设和电子政务的新宠，也是一个相对较新的市场</p>
+<p>（3） 内容管理系统组成要素</p>
+<ul>
+<li>文档模板</li>
+<li>脚本语言或标记语言</li>
+<li>与数据库集成</li>
+</ul>
+<h3 id="2）在线工具"><a href="#2）在线工具" class="headerlink" title="2）在线工具"></a>2）在线工具</h3><p><a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a><br><a target="_blank" rel="noopener" href="https://www.yunsee.cn/">https://www.yunsee.cn/</a></p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/1626009190390-a208e46e-77c6-471e-8fe3-b363592b0252.png" alt="img"></p>
+<h2 id="3-开源-amp-内部"><a href="#3-开源-amp-内部" class="headerlink" title="3.开源&amp;内部"></a>3.开源&amp;内部</h2><p><strong>开源</strong>：去网上找寻漏洞文章。直接找漏洞或审计（可以通过CMS识别出来的）<br><strong>内部</strong>：常规的渗透测试，用扫描工具去判断。（找不到源码或者不知道对方的CMS名称）</p>
+<h2 id="4-关于源码获取途径"><a href="#4-关于源码获取途径" class="headerlink" title="4.关于源码获取途径"></a>4.关于源码获取途径</h2><p> 扫描工具探测备份文件<br> CMS识别技术获取CMS名称然后从网上下载<br> 百度直接搜索：源码<br> 咸鱼上会有卖<br> 第三方源码站：比如菜鸟源码<br> 各种行业对应</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a>5.总结</h2><p>关注应用分类及脚本类型估摸出可能存在的漏洞（其中框架例外），在获取源码后可进行本地安全测试（本地安全测试（手工使用工具去扫描，不需要接触代码））或代码审计，也可以分析其目录工作原理（数据库备份，bak文件等），未获取到的源码采用各种方法想办法获取</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/WEB%E6%BA%90%E7%A0%81.png" alt="WEB源码"></p>
+<h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="ASP，PHP等源码下安全测试"><a href="#ASP，PHP等源码下安全测试" class="headerlink" title="ASP，PHP等源码下安全测试"></a>ASP，PHP等源码下安全测试</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">平台识别-某CMS无漏洞-默认数据库</span><br><span class="line">平台识别-某CMS有漏洞-漏洞利用</span><br></pre></td></tr></table></figure>
+
+<p>看出是asp程序源码</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210206211820666.png" alt="image-20210206211820666"></p>
+<p>判断出是XYCMS</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210206211903864.png" alt="image-20210206211903864"></p>
+<p>下载XYCMS源码</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210206211937414.png" alt="image-20210206211937414"></p>
+<p>找到数据库文件路径</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210206212027975.png" alt="image-20210206212027975"></p>
+<p>easy access工具打开数据库文件</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210206212743275.png" alt="image-20210206212743275"></p>
+<p>访问下载</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/adaadad.png" alt="adaadad"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/baadada.png" alt="baadada"></p>
+<p>访问后台地址</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/casdadsd.png" alt="casdadsd"></p>
+<h3 id="1、手工识别"><a href="#1、手工识别" class="headerlink" title="1、手工识别"></a>1、手工识别</h3><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/d1231312.png" alt="d1231312"></p>
+<p><strong>metinfoCMS</strong></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/10dad.png" alt="image-20210206213209583"></p>
+<p>直接搜索漏洞</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/11dad.png" alt="image-20210206213356947"></p>
+<h3 id="2、字典识别"><a href="#2、字典识别" class="headerlink" title="2、字典识别"></a><strong>2、字典识别</strong></h3><p>访问对应文件</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/12dad.png" alt="image-20210206215132407"></p>
+<p>下载下来查看md5</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/13dad.png" alt="image-20210206215046807"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">certutil -hashfile 新建文本文档.txt MD5</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/14dad.png" alt="image-20210206215245116"></p>
+<p>下载工具下载</p>
+<p>迅雷</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/15dad.png" alt="image-20210206215337768"></p>
+<h2 id="源码引用分类下的针对漏洞"><a href="#源码引用分类下的针对漏洞" class="headerlink" title="源码引用分类下的针对漏洞"></a>源码引用分类下的针对漏洞</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">niushop电商类关注漏洞点-业务逻辑</span><br></pre></td></tr></table></figure>
+
+<p>查看电商网站业务逻辑-即购买时的操作</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/16dad.png" alt="image-20210206220118618"></p>
+<p>抓包</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/17dad.png" alt="image-20210206220142514"></p>
+<p>提交订单</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/18dad.png" alt="image-20210206220325196"></p>
+<p>将num改成0或者-1</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/19dad.png" alt="image-20210206220508479"></p>
+<p>0元支付</p>
+<h2 id="简要目标从识别到源码获取"><a href="#简要目标从识别到源码获取" class="headerlink" title="简要目标从识别到源码获取"></a><strong>简要目标从识别到源码获取</strong></h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">本地演示个人博客-手工发现其CMS-漏洞搜索或下载分析</span><br><span class="line">http:weipan.1016sangshen.cn/ 内部搭建的靶场</span><br><span class="line">人工爆框架-搜索特定URL-获取其他相符站点-漏洞测试</span><br><span class="line">借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他</span><br></pre></td></tr></table></figure>
+
+<h2 id="本地演示个人博客-手工发现其CMS-漏洞搜索或下载分析"><a href="#本地演示个人博客-手工发现其CMS-漏洞搜索或下载分析" class="headerlink" title="本地演示个人博客-手工发现其CMS-漏洞搜索或下载分析"></a><strong>本地演示个人博客-手工发现其CMS-漏洞搜索或下载分析</strong></h2><p>控制台-网络-数据包文件名</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/20dad.png" alt="image-20210206220752973"></p>
+<p>搜索特殊文件名，识别cms</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/21dad.png" alt="image-20210206220815578"></p>
+<h2 id="http-weipan-1016sangshen-cn-内部搭建的靶场"><a href="#http-weipan-1016sangshen-cn-内部搭建的靶场" class="headerlink" title="http:weipan.1016sangshen.cn/ 内部搭建的靶场"></a><strong>http:weipan.1016sangshen.cn/ 内部搭建的靶场</strong></h2><h3 id="人工爆框架-搜索特定URL-获取其他相符站点-漏洞测试"><a href="#人工爆框架-搜索特定URL-获取其他相符站点-漏洞测试" class="headerlink" title="人工爆框架-搜索特定URL-获取其他相符站点-漏洞测试"></a><strong>人工爆框架-搜索特定URL-获取其他相符站点-漏洞测试</strong></h3><p>报错得到框架是thinkphp</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/22dad.png" alt="image-20210206221054605"></p>
+<p>搜索得到thinkphp的漏洞利用工具thinkphp_get</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/23dad.png" alt="image-20210206221400383"></p>
+<h2 id="借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他"><a href="#借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他" class="headerlink" title="借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他"></a>借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他</h2><p>灰色源码站</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/24dad1.png" alt="24dad"></p>
+<p>咸鱼</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/25dad.png" alt="25dad"></p>
+<h2 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h2><p>菜鸟源码：<a target="_blank" rel="noopener" href="https://cnmmm.com/">https://cnmmm.com</a></p>
+<p>云悉：<a target="_blank" rel="noopener" href="https://www.yunsee.cn/">https://www.yunsee.cn</a></p>
+<p>字典下载：<a target="_blank" rel="noopener" href="https://www.ddosi.com/b244/">https://www.ddosi.com/b244/</a></p>
+<p>py指纹识别：<a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Lucifer1993/cmsprint">https://github.com/Lucifer1993/cmsprint</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/gtfly/GitHub-Monitor">https://github.com/gtfly/GitHub-Monitor</a></p>
+<p><a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/language/index.html">https://websec.readthedocs.io/zh/latest/language/index.html</a></p>
+<p>另外还有windows集合部分源码</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1967458972@qq.com">Mikasu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.yuyapeng.cn/post/335d859b.html">https://www.yuyapeng.cn/post/335d859b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.yuyapeng.cn" target="_blank">Mikasu's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/">基础入门</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/378921e2.html"><img class="next-cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/903200.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">3、基础入门-搭建安全拓展</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/378921e2.html" title="3、基础入门-搭建安全拓展"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/903200.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">3、基础入门-搭建安全拓展</div></div></a></div><div><a href="/post/9c784719.html" title="2、基础入门-数据包拓展"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">2、基础入门-数据包拓展</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mikasu</div><div class="author-info__description">大三学生，CTFer</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/M1kasu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/M1kasu" target="_blank" title=""><i class="iconfont  icon-github"></i></a><a class="social-icon" href="https://space.bilibili.com/399414396/" target="_blank" title=""><i class="iconfont  icon-bilibili"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1967458972" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="mailto:1967458972@qq.com" target="_blank" title=""><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://blog.csdn.net/memery_key" target="_blank" title=""><i class="iconfont icon-csdn"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问小站，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-WEB%E6%BA%90%E7%A0%81%E6%8B%93%E5%B1%95"><span class="toc-number">1.</span> <span class="toc-text">4、基础入门-WEB源码拓展</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EWEB%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">关于WEB源码目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EWEB%E6%BA%90%E7%A0%81%E8%84%9A%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">关于WEB源码脚本类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EWEB%E6%BA%90%E7%A0%81%E5%BA%94%E7%94%A8%E5%88%86%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">关于WEB源码应用分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EWEB%E6%BA%90%E7%A0%81%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E"><span class="toc-number">6.</span> <span class="toc-text">关于WEB源码其他说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A1%86%E6%9E%B6%E6%BC%8F%E6%B4%9E%E6%88%96%E4%BB%A3%E7%A0%81%E6%BC%8F%E6%B4%9E"><span class="toc-number">6.1.</span> <span class="toc-text">1.框架漏洞或代码漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-CMS%E8%AF%86%E5%88%AB"><span class="toc-number">6.2.</span> <span class="toc-text">2.CMS识别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%BC%89%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">6.2.1.</span> <span class="toc-text">1）概念：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%BC%89%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7"><span class="toc-number">6.2.2.</span> <span class="toc-text">2）在线工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BC%80%E6%BA%90-amp-%E5%86%85%E9%83%A8"><span class="toc-number">6.3.</span> <span class="toc-text">3.开源&amp;内部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%B3%E4%BA%8E%E6%BA%90%E7%A0%81%E8%8E%B7%E5%8F%96%E9%80%94%E5%BE%84"><span class="toc-number">6.4.</span> <span class="toc-text">4.关于源码获取途径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93"><span class="toc-number">6.5.</span> <span class="toc-text">5.总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E6%A1%88%E4%BE%8B"><span class="toc-number">7.</span> <span class="toc-text">演示案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ASP%EF%BC%8CPHP%E7%AD%89%E6%BA%90%E7%A0%81%E4%B8%8B%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95"><span class="toc-number">7.1.</span> <span class="toc-text">ASP，PHP等源码下安全测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%89%8B%E5%B7%A5%E8%AF%86%E5%88%AB"><span class="toc-number">7.1.1.</span> <span class="toc-text">1、手工识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%AD%97%E5%85%B8%E8%AF%86%E5%88%AB"><span class="toc-number">7.1.2.</span> <span class="toc-text">2、字典识别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%BC%95%E7%94%A8%E5%88%86%E7%B1%BB%E4%B8%8B%E7%9A%84%E9%92%88%E5%AF%B9%E6%BC%8F%E6%B4%9E"><span class="toc-number">7.2.</span> <span class="toc-text">源码引用分类下的针对漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E8%A6%81%E7%9B%AE%E6%A0%87%E4%BB%8E%E8%AF%86%E5%88%AB%E5%88%B0%E6%BA%90%E7%A0%81%E8%8E%B7%E5%8F%96"><span class="toc-number">7.3.</span> <span class="toc-text">简要目标从识别到源码获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%BC%94%E7%A4%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E6%89%8B%E5%B7%A5%E5%8F%91%E7%8E%B0%E5%85%B6CMS-%E6%BC%8F%E6%B4%9E%E6%90%9C%E7%B4%A2%E6%88%96%E4%B8%8B%E8%BD%BD%E5%88%86%E6%9E%90"><span class="toc-number">7.4.</span> <span class="toc-text">本地演示个人博客-手工发现其CMS-漏洞搜索或下载分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-weipan-1016sangshen-cn-%E5%86%85%E9%83%A8%E6%90%AD%E5%BB%BA%E7%9A%84%E9%9D%B6%E5%9C%BA"><span class="toc-number">7.5.</span> <span class="toc-text">http:weipan.1016sangshen.cn&#x2F; 内部搭建的靶场</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BA%E5%B7%A5%E7%88%86%E6%A1%86%E6%9E%B6-%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9AURL-%E8%8E%B7%E5%8F%96%E5%85%B6%E4%BB%96%E7%9B%B8%E7%AC%A6%E7%AB%99%E7%82%B9-%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95"><span class="toc-number">7.5.1.</span> <span class="toc-text">人工爆框架-搜索特定URL-获取其他相符站点-漏洞测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%9F%E5%8A%A9%E7%89%B9%E5%AE%9A%E8%A1%8C%E4%B8%9A%E6%BA%90%E7%A0%81%E6%88%96%E5%92%B8%E9%B1%BC%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2%E8%8E%B7%E5%8F%96-%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BA-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E6%88%96%E5%85%B6%E4%BB%96"><span class="toc-number">7.6.</span> <span class="toc-text">借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E8%B5%84%E6%BA%90"><span class="toc-number">7.7.</span> <span class="toc-text">涉及资源</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/335d859b.html" title="4、基础入门-WEB源码拓展"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="4、基础入门-WEB源码拓展"/></a><div class="content"><a class="title" href="/post/335d859b.html" title="4、基础入门-WEB源码拓展">4、基础入门-WEB源码拓展</a><time datetime="2022-01-26T11:21:41.000Z" title="发表于 2022-01-26 19:21:41">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/378921e2.html" title="3、基础入门-搭建安全拓展"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/903200.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="3、基础入门-搭建安全拓展"/></a><div class="content"><a class="title" href="/post/378921e2.html" title="3、基础入门-搭建安全拓展">3、基础入门-搭建安全拓展</a><time datetime="2022-01-25T12:01:09.000Z" title="发表于 2022-01-25 20:01:09">2022-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/9c784719.html" title="2、基础入门-数据包拓展"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2、基础入门-数据包拓展"/></a><div class="content"><a class="title" href="/post/9c784719.html" title="2、基础入门-数据包拓展">2、基础入门-数据包拓展</a><time datetime="2022-01-25T04:25:47.000Z" title="发表于 2022-01-25 12:25:47">2022-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e47d7f2d.html" title="1、基础入门-概念名词"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/903200.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="1、基础入门-概念名词"/></a><div class="content"><a class="title" href="/post/e47d7f2d.html" title="1、基础入门-概念名词">1、基础入门-概念名词</a><time datetime="2022-01-24T15:03:35.000Z" title="发表于 2022-01-24 23:03:35">2022-01-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e2a2761f.html" title="XSS(DOM)"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XSS(DOM)"/></a><div class="content"><a class="title" href="/post/e2a2761f.html" title="XSS(DOM)">XSS(DOM)</a><time datetime="2022-01-23T12:48:42.000Z" title="发表于 2022-01-23 20:48:42">2022-01-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mikasu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
