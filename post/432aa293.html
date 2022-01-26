@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>7、信息收集-CDN绕过技术 | Mikasu's Blog</title><meta name="keywords" content="信息收集"><meta name="author" content="Mikasu,1967458972@qq.com"><meta name="copyright" content="Mikasu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referer" content="no-referer"><meta name="description" content="7、信息收集-CDN绕过技术CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。但在安全测试过程中，若目标存在CDN服务，将会影响到后续的安全测试过程。 简单来说CDN就是为了提高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7、信息收集-CDN绕过技术">
+<meta property="og:url" content="https://www.yuyapeng.cn/post/432aa293.html">
+<meta property="og:site_name" content="Mikasu&#39;s Blog">
+<meta property="og:description" content="7、信息收集-CDN绕过技术CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。但在安全测试过程中，若目标存在CDN服务，将会影响到后续的安全测试过程。 简单来说CDN就是为了提高">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg">
+<meta property="article:published_time" content="2022-01-26T14:33:21.000Z">
+<meta property="article:modified_time" content="2022-01-26T14:33:32.887Z">
+<meta property="article:author" content="Mikasu">
+<meta property="article:tag" content="信息收集">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg"><link rel="shortcut icon" href="https://gitee.com/littlefiremonkey/picture/raw/master/index.png"><link rel="canonical" href="https://www.yuyapeng.cn/post/432aa293"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '7、信息收集-CDN绕过技术',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-26 22:33:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mikasu's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">7、信息收集-CDN绕过技术</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-26T14:33:21.000Z" title="发表于 2022-01-26 22:33:21">2022-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-26T14:33:32.887Z" title="更新于 2022-01-26 22:33:32">2022-01-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="7、信息收集-CDN绕过技术"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="7、信息收集-CDN绕过技术"><a href="#7、信息收集-CDN绕过技术" class="headerlink" title="7、信息收集-CDN绕过技术"></a>7、信息收集-CDN绕过技术</h1><p>CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，<strong>使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。</strong>但在安全测试过程中，若目标存在CDN服务，将会影响到后续的安全测试过程。</p>
+<p><strong>简单来说CDN就是为了提高访问网站的速度，还有异地备援（网站崩溃后能够迅速切换临近的节点进行服务）、保证网站安全。</strong></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/1ghjghjf.png" alt="1ghjghjf"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/2265061-20210109094247774-1441397101.png" alt="img"></p>
+<h1 id="如何判断目标存在CDN服务？"><a href="#如何判断目标存在CDN服务？" class="headerlink" title="如何判断目标存在CDN服务？"></a>如何判断目标存在CDN服务？</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">利用多节点技术进行请求返回判断：超级ping</span><br></pre></td></tr></table></figure>
+
+<p>站长之家：<a target="_blank" rel="noopener" href="http://ping.chinaz.com/">http://ping.chinaz.com/</a></p>
+<h2 id="有CDN情况"><a href="#有CDN情况" class="headerlink" title="有CDN情况"></a>有CDN情况</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/2wewrwr.png" alt="2wewrwr"></p>
+<h2 id="无CDN情况"><a href="#无CDN情况" class="headerlink" title="无CDN情况"></a>无CDN情况</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/3adadqweqwe.png" alt="3adadqweqwe"></p>
+<h1 id="CDN对于安全测试有哪些影响？"><a href="#CDN对于安全测试有哪些影响？" class="headerlink" title="CDN对于安全测试有哪些影响？"></a>CDN对于安全测试有哪些影响？</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CDN会阻碍渗透测试。有CDN存在，访问的是缓存节点，无法访问真实的网站进行渗透测试，会有细微的差别。</span><br></pre></td></tr></table></figure>
+
+<h1 id="目前常见的CDN绕过技术有哪些？"><a href="#目前常见的CDN绕过技术有哪些？" class="headerlink" title="目前常见的CDN绕过技术有哪些？"></a>目前常见的CDN绕过技术有哪些？</h1><h2 id="子域名查询"><a href="#子域名查询" class="headerlink" title="子域名查询"></a>子域名查询</h2><p><strong>子域名和主域名可能同一个IP地址，或者一个网段，或者不同网段</strong>   </p>
+<p><a target="_blank" rel="noopener" href="https://chaziyu.com/">https://chaziyu.com/</a></p>
+<h2 id="邮箱服务查询"><a href="#邮箱服务查询" class="headerlink" title="邮箱服务查询"></a>邮箱服务查询</h2><p><strong>内部邮箱系统一般不会使用CDN。</strong>邮箱服务器大部分不会做CDN，邮箱访问少，通常是邮箱访问客户，所以一般不需要CDN缓存节点</p>
+<h2 id="国外地址请求"><a href="#国外地址请求" class="headerlink" title="国外地址请求"></a>国外地址请求</h2><p>为了节约成本一般都在国内部署CDN，国外访问可能就会直接得到真实IP地址</p>
+<h2 id="遗留文件，扫描全网"><a href="#遗留文件，扫描全网" class="headerlink" title="遗留文件，扫描全网"></a>遗留文件，扫描全网</h2><p><strong>hack语法搜</strong></p>
+<p>类似phpinfo，里面有IP地址。</p>
+<p>例子：通过查 inurl:phpinfo.php 点击进去，任意点击进去一个网站出现以下页面，在这个页面中我们就可能找到对应的网站的真实IP地址，这就是遗留文件</p>
+<p><img src="https://i.loli.net/2021/09/17/MuvfgXAG5Hp4FaQ.png" alt="image-20210917190212982"></p>
+<p>全网进行访问网站，IP地址进行搜集，从中寻找真实IP地址。（以上方法都行不通的情况下使用，下下策）</p>
+<h2 id="黑暗引擎搜索特定文件"><a href="#黑暗引擎搜索特定文件" class="headerlink" title="黑暗引擎搜索特定文件"></a>黑暗引擎搜索特定文件</h2><p><strong>zoomeye，fofa，shodan。 搜索特定文件，如图标ico文件的md5值。</strong></p>
+<p>搜索特定文件，是指每个文件都存在唯一的hash值或者md5值，通过对比来进行查找</p>
+<h2 id="DNS历史记录，以量打量（DDOS）"><a href="#DNS历史记录，以量打量（DDOS）" class="headerlink" title="DNS历史记录，以量打量（DDOS）"></a>DNS历史记录，以量打量（DDOS）</h2><p><strong>DNS记录有之前没做CDN时候的IP记录。</strong></p>
+<p>量打量也就是所谓Ddos攻击，通过消耗节点的IP地址（打光CDN上面的流量），然后达到最后访问真实IP地址的情况（人身攻击 不推荐使用）</p>
+<h1 id="CDN真实IP地址获取后绑定指向地址"><a href="#CDN真实IP地址获取后绑定指向地址" class="headerlink" title="CDN真实IP地址获取后绑定指向地址"></a>CDN真实IP地址获取后绑定指向地址</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">更改本地HOSTS解析指向文件</span><br></pre></td></tr></table></figure>
+
+<p>*<em>子域名拿IP     子域名查IP,    <em>.xiaodi8.com  全部指向47.1.1.1地址</em></em></p>
+<p><strong>国外地址拿IP</strong></p>
+<p><strong>第三方接口拿IP     微步在线，情报社区</strong></p>
+<p><strong>邮件服务器拿IP     查看源代码</strong></p>
+<p><strong>黑暗引擎搜索特定文件拿IP</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fuckcdn      w8fuckcdn    zmanp</span><br></pre></td></tr></table></figure>
+
+<p><strong>导出ICO文件的hash值，shodan搜索哈希值，http.favicon.hash:xxxxxxxx</strong></p>
+<h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><p>利用子域名请求获取IP地址</p>
+<p>利用国外地址请求获取真实IP</p>
+<p>利用第三方接口查询获取真实IP</p>
+<p>利用邮件服务器接口获取真实IP</p>
+<p>利用黑暗引擎搜索特定文件获取真实IP</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">xueersi 子域名上的小技巧</span><br><span class="line">sp910 DNS历史记录=第三方接口（接口查询）</span><br><span class="line">m.sp910 子域名小技巧/采集/国外请求（同类型访问）</span><br><span class="line">mozhe 邮箱源码测试对比第三方查询（地区分析）</span><br><span class="line">v233gg 黑暗引擎（shodan搜指定hash文件）</span><br><span class="line"></span><br><span class="line">扫全网</span><br><span class="line">fuckcdn，w8fuckcdn，zmap等</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python2开发环境</span><br><span class="line"><span class="comment">#安装mmh3失败记得先安装下这个Microsoft Visual C++ 14.0</span></span><br><span class="line"><span class="comment">#https://pan.baidu.com/s/12TcFKZ6KFLhofCT-osJOSg 提取码：wkgv</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> mmh3</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="built_in">hash</span>=mmh3.<span class="built_in">hash</span>(favicon)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;http.favicon.hash:&#x27;</span>+<span class="built_in">str</span>(<span class="built_in">hash</span>)</span><br></pre></td></tr></table></figure>
+
+<p>原理：python脚本通过请求网站获取.ico文件获取到文件的哈希值<br>然后shodan搜索文件的hash值，用网站的文件hash值相对应。</p>
+<h2 id="xueersi-子域名上的小技巧"><a href="#xueersi-子域名上的小技巧" class="headerlink" title="xueersi 子域名上的小技巧"></a>xueersi 子域名上的小技巧</h2><p>超级ping</p>
+<p><a target="_blank" rel="noopener" href="http://www.xueersi.com/">www.xueersi.com</a></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/4sdasdqr.png" alt="4sdasdqr"></p>
+<p>超级ping</p>
+<p>xueersi.com</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220126222753243.png" alt="image-20220126222753243"></p>
+<p>原因：只设置了<a target="_blank" rel="noopener" href="http://www.xueersi.com的cdn解析,没设置xueersi.com的cdn解析/">www.xueersi.com的cdn解析，没设置xueersi.com的cdn解析</a></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/6asdasfa.png" alt="6asdasfa"></p>
+<h2 id="sp910-DNS历史记录-第三方接口（接口查询）"><a href="#sp910-DNS历史记录-第三方接口（接口查询）" class="headerlink" title="sp910 DNS历史记录=第三方接口（接口查询）"></a>sp910 DNS历史记录=第三方接口（接口查询）</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/7dsfggs.png" alt="7dsfggs"></p>
+<h2 id="m-sp910-子域名小技巧-采集-国外请求（同类型访问）"><a href="#m-sp910-子域名小技巧-采集-国外请求（同类型访问）" class="headerlink" title="m.sp910 子域名小技巧/采集/国外请求（同类型访问）"></a>m.sp910 子域名小技巧/采集/国外请求（同类型访问）</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/8egger.png" alt="8egger"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tools.ipip.net/cdn.php</span><br></pre></td></tr></table></figure>
+
+<h2 id="mozhe-邮箱源码测试对比第三方查询（地区分析）"><a href="#mozhe-邮箱源码测试对比第三方查询（地区分析）" class="headerlink" title="mozhe 邮箱源码测试对比第三方查询（地区分析）"></a>mozhe 邮箱源码测试对比第三方查询（地区分析）</h2><p><img src="https://i.loli.net/2021/09/16/UIgdMraCF3lp6vo.png" alt="image-20210916182626714"></p>
+<p><img src="https://i.loli.net/2021/09/16/7ectgZxKrIPsAnM.png" alt="image-20210916182601490"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/11asdad.png" alt="11asdad"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210705231220361.png" alt="image-20210705231220361"></p>
+<p><strong>根据ip查地址信息判断哪个是真实ip</strong></p>
+<p>或者修改绑定host文件为真实ip，看能否访问</p>
+<h2 id="v233gg-黑暗引擎（shodan搜指定hash文件）"><a href="#v233gg-黑暗引擎（shodan搜指定hash文件）" class="headerlink" title="v233gg 黑暗引擎（shodan搜指定hash文件）"></a>v233gg 黑暗引擎（shodan搜指定hash文件）</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/12qweqe.png" alt="12qweqe"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/13sadad.png" alt="13sadad"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> mmh3</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">&#x27;favicon.ico&#x27;</span>)</span><br><span class="line">favicon=response.content.encode(<span class="string">&#x27;base64&#x27;</span>)</span><br><span class="line"><span class="built_in">hash</span>=mmh3.<span class="built_in">hash</span>(favicon)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;http.favicon.hash:&#x27;</span>+<span class="built_in">str</span>(<span class="built_in">hash</span>)</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://gitee.com/littlefiremonkey/image/raw/master/14asdasd.png" alt="14asdasd"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/15asd.png" alt="15asd"></p>
+<h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p><a target="_blank" rel="noopener" href="https://www.shodan.io/">https://www.shodan.io</a></p>
+<p><a target="_blank" rel="noopener" href="https://x.threatbook.cn/">https://x.threatbook.cn</a></p>
+<p><a target="_blank" rel="noopener" href="http://ping.chinaz.com/">http://ping.chinaz.com</a></p>
+<p><a target="_blank" rel="noopener" href="https://git-site-ip.com/">https://git-site-ip.com</a></p>
+<p><a target="_blank" rel="noopener" href="https://asm.ca.com/en/ping.php">https://asm.ca.com/en/ping.php</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/boy-hack/w8fuckcdn">https://github.com/boy-hack/w8fuckcdn</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Tai7sy/fuckcdn">https://github.com/Tai7sy/fuckcdn</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzA5MzQ3MDE1NQ==&amp;mid=2653939118&amp;idx=1&amp;sn=945b81344d9c89431a8c413ff633fc3a&amp;chksm=8b86290abcf1a01cdc00711339884602b5bb474111d3aff2d465182702715087e22c852c158f&amp;token=268417143&amp;lang=zh_CN#rd">https://mp.weixin.qq.com/s?__biz=MzA5MzQ3MDE1NQ==&amp;mid=2653939118&amp;idx=1&amp;sn=945b81344d9c89431a8c413ff633fc3a&amp;chksm=8b86290abcf1a01cdc00711339884602b5bb474111d3aff2d465182702715087e22c852c158f&amp;token=268417143&amp;lang=zh_CN#rd</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1967458972@qq.com">Mikasu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.yuyapeng.cn/post/432aa293.html">https://www.yuyapeng.cn/post/432aa293.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.yuyapeng.cn" target="_blank">Mikasu's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">信息收集</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/20cf6262.html"><img class="next-cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/903200.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">6、基础入门-加密编码算法</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mikasu</div><div class="author-info__description">大三学生，CTFer</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/M1kasu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/M1kasu" target="_blank" title=""><i class="iconfont  icon-github"></i></a><a class="social-icon" href="https://space.bilibili.com/399414396/" target="_blank" title=""><i class="iconfont  icon-bilibili"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1967458972" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="mailto:1967458972@qq.com" target="_blank" title=""><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://blog.csdn.net/memery_key" target="_blank" title=""><i class="iconfont icon-csdn"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问小站，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#7%E3%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-CDN%E7%BB%95%E8%BF%87%E6%8A%80%E6%9C%AF"><span class="toc-number">1.</span> <span class="toc-text">7、信息收集-CDN绕过技术</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E7%9B%AE%E6%A0%87%E5%AD%98%E5%9C%A8CDN%E6%9C%8D%E5%8A%A1%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">如何判断目标存在CDN服务？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89CDN%E6%83%85%E5%86%B5"><span class="toc-number">2.1.</span> <span class="toc-text">有CDN情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0CDN%E6%83%85%E5%86%B5"><span class="toc-number">2.2.</span> <span class="toc-text">无CDN情况</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CDN%E5%AF%B9%E4%BA%8E%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%9C%89%E5%93%AA%E4%BA%9B%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">CDN对于安全测试有哪些影响？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E5%B8%B8%E8%A7%81%E7%9A%84CDN%E7%BB%95%E8%BF%87%E6%8A%80%E6%9C%AF%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">目前常见的CDN绕过技术有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%9F%9F%E5%90%8D%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.1.</span> <span class="toc-text">子域名查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%AE%E7%AE%B1%E6%9C%8D%E5%8A%A1%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.2.</span> <span class="toc-text">邮箱服务查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BD%E5%A4%96%E5%9C%B0%E5%9D%80%E8%AF%B7%E6%B1%82"><span class="toc-number">4.3.</span> <span class="toc-text">国外地址请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%97%E7%95%99%E6%96%87%E4%BB%B6%EF%BC%8C%E6%89%AB%E6%8F%8F%E5%85%A8%E7%BD%91"><span class="toc-number">4.4.</span> <span class="toc-text">遗留文件，扫描全网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%91%E6%9A%97%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6"><span class="toc-number">4.5.</span> <span class="toc-text">黑暗引擎搜索特定文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%EF%BC%8C%E4%BB%A5%E9%87%8F%E6%89%93%E9%87%8F%EF%BC%88DDOS%EF%BC%89"><span class="toc-number">4.6.</span> <span class="toc-text">DNS历史记录，以量打量（DDOS）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CDN%E7%9C%9F%E5%AE%9EIP%E5%9C%B0%E5%9D%80%E8%8E%B7%E5%8F%96%E5%90%8E%E7%BB%91%E5%AE%9A%E6%8C%87%E5%90%91%E5%9C%B0%E5%9D%80"><span class="toc-number">5.</span> <span class="toc-text">CDN真实IP地址获取后绑定指向地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E6%A1%88%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">演示案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#xueersi-%E5%AD%90%E5%9F%9F%E5%90%8D%E4%B8%8A%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">6.1.</span> <span class="toc-text">xueersi 子域名上的小技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sp910-DNS%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95-%E7%AC%AC%E4%B8%89%E6%96%B9%E6%8E%A5%E5%8F%A3%EF%BC%88%E6%8E%A5%E5%8F%A3%E6%9F%A5%E8%AF%A2%EF%BC%89"><span class="toc-number">6.2.</span> <span class="toc-text">sp910 DNS历史记录&#x3D;第三方接口（接口查询）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#m-sp910-%E5%AD%90%E5%9F%9F%E5%90%8D%E5%B0%8F%E6%8A%80%E5%B7%A7-%E9%87%87%E9%9B%86-%E5%9B%BD%E5%A4%96%E8%AF%B7%E6%B1%82%EF%BC%88%E5%90%8C%E7%B1%BB%E5%9E%8B%E8%AE%BF%E9%97%AE%EF%BC%89"><span class="toc-number">6.3.</span> <span class="toc-text">m.sp910 子域名小技巧&#x2F;采集&#x2F;国外请求（同类型访问）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mozhe-%E9%82%AE%E7%AE%B1%E6%BA%90%E7%A0%81%E6%B5%8B%E8%AF%95%E5%AF%B9%E6%AF%94%E7%AC%AC%E4%B8%89%E6%96%B9%E6%9F%A5%E8%AF%A2%EF%BC%88%E5%9C%B0%E5%8C%BA%E5%88%86%E6%9E%90%EF%BC%89"><span class="toc-number">6.4.</span> <span class="toc-text">mozhe 邮箱源码测试对比第三方查询（地区分析）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v233gg-%E9%BB%91%E6%9A%97%E5%BC%95%E6%93%8E%EF%BC%88shodan%E6%90%9C%E6%8C%87%E5%AE%9Ahash%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-number">6.5.</span> <span class="toc-text">v233gg 黑暗引擎（shodan搜指定hash文件）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E8%B5%84%E6%BA%90"><span class="toc-number">7.</span> <span class="toc-text">涉及资源</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="7、信息收集-CDN绕过技术"/></a><div class="content"><a class="title" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术">7、信息收集-CDN绕过技术</a><time datetime="2022-01-26T14:33:21.000Z" title="发表于 2022-01-26 22:33:21">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/20cf6262.html" title="6、基础入门-加密编码算法"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/903200.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="6、基础入门-加密编码算法"/></a><div class="content"><a class="title" href="/post/20cf6262.html" title="6、基础入门-加密编码算法">6、基础入门-加密编码算法</a><time datetime="2022-01-26T11:42:03.000Z" title="发表于 2022-01-26 19:42:03">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/641f2e76.html" title="5、基础入门-系统及数据库等"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="5、基础入门-系统及数据库等"/></a><div class="content"><a class="title" href="/post/641f2e76.html" title="5、基础入门-系统及数据库等">5、基础入门-系统及数据库等</a><time datetime="2022-01-26T11:35:46.000Z" title="发表于 2022-01-26 19:35:46">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/335d859b.html" title="4、基础入门-WEB源码拓展"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="4、基础入门-WEB源码拓展"/></a><div class="content"><a class="title" href="/post/335d859b.html" title="4、基础入门-WEB源码拓展">4、基础入门-WEB源码拓展</a><time datetime="2022-01-26T11:21:41.000Z" title="发表于 2022-01-26 19:21:41">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/378921e2.html" title="3、基础入门-搭建安全拓展"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="3、基础入门-搭建安全拓展"/></a><div class="content"><a class="title" href="/post/378921e2.html" title="3、基础入门-搭建安全拓展">3、基础入门-搭建安全拓展</a><time datetime="2022-01-25T12:01:09.000Z" title="发表于 2022-01-25 20:01:09">2022-01-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mikasu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
