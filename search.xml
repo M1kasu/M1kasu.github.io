@@ -4,12 +4,41 @@
   
     
     <entry>
+      <title>9、信息收集-APP及其他资产等</title>
+      <link href="/post/ec56e6a5.html"/>
+      <url>/post/ec56e6a5.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="9、信息收集-APP及其他资产等"><a href="#9、信息收集-APP及其他资产等" class="headerlink" title="9、信息收集-APP及其他资产等"></a>9、信息收集-APP及其他资产等</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86123.png" alt="信息收集123"></p><p>在安全测试中，若WEB无法取得进展或无WEB的情况下，我们就需要<strong>借助APP或者其他资产进行在线信息收集</strong>，从而展开后续渗透，那么其中的信息收集就尤为重要。</p><h2 id="APP提取一键反编译提取"><a href="#APP提取一键反编译提取" class="headerlink" title="APP提取一键反编译提取"></a>APP提取一键反编译提取</h2><p>需要提取的apk文件放在apps文件夹内，直接运行apkAnalyser.exe</p><p>提取出来的文件会在result中 urls一般有文件的url链接</p><p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220128142717760.png" alt="image-20220128142717760"></p><p>通过<strong>漏了个大洞</strong>文件夹中的apk数据提取，根据使用指南文件就可以对app进行信息提取</p><h2 id="APP抓数据包进行工具配合"><a href="#APP抓数据包进行工具配合" class="headerlink" title="APP抓数据包进行工具配合"></a>APP抓数据包进行工具配合</h2><p>首先，我们需要通过<strong>burpsuite进行代理的ip地址和端口绑定</strong>，将手机的wifi设置代理，<strong>设置相同的ip地址和端口</strong>。</p><p>接着，在burpsuite软件中，我们<strong>不采取截取的方式</strong>，只点击进去<strong>HTTP history</strong>，然后通过点击手机对应要安全测试的app软件，通过点击软件中各个按钮来进行对应数据报的收集，从而知道更多的相关网站，<strong>达到了从app层面到web层面的转换，为后续安全测试提供更多可能性。</strong></p><p>接着，在burpsuite软件中，我们不采取截取的方式，只点击进去HTTP history，然后通过点击手机对应要安全测试的app软件，通过点击软件中各个按钮来进行对应数据报的收集，从而知道更多的相关网站，达到了从app层面到web层面的转换，为后续安全测试提供更多可能性。</p><p>如果没有找到app对应的url地址/网站，我们就需要<strong>对这个app进行反编译的处理，前提懂java语言</strong></p><h2 id="各种第三方应用相关探针技术"><a href="#各种第三方应用相关探针技术" class="headerlink" title="各种第三方应用相关探针技术"></a>各种第三方应用相关探针技术</h2><p>1、使用<strong>nmap软件</strong>进行端口扫描，通过所得端口得到后续进行安全测试的思路（这个是最全面的，但所需要的时间可能最长）</p><p>2、使用<strong>第三方的网站（黑暗引擎）</strong>进行信息收集（会提供对应网站的开放端口，服务等等），比较有用的几个</p><p><a href="https://fofa.so/">https://fofa.so/</a> （推荐）<br><a href="https://www.shodan.io/">https://www.shodan.io/</a><br><a href="https://www.zoomeye.org/">https://www.zoomeye.org/</a></p><p>3、通过获取的信息，通过不断更改网站端口进入，从而进一步获取到更加有价值的东西,有如知道<strong>对应使用的框架，使用的中间件，开放端口</strong>是否可以访问等等信息，可以进行搜索引擎找到对应的漏洞进行安全测试（如果输入遇到账号密码的情况，可以尝试账号密码都是admin这种弱口令，万一进去了呢）</p><h2 id="各种服务接口信息相关探针技术"><a href="#各种服务接口信息相关探针技术" class="headerlink" title="各种服务接口信息相关探针技术"></a>各种服务接口信息相关探针技术</h2><h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="APP提取及抓包及后续配合"><a href="#APP提取及抓包及后续配合" class="headerlink" title="APP提取及抓包及后续配合"></a>APP提取及抓包及后续配合</h2><h3 id="某APK一键提取反编译"><a href="#某APK一键提取反编译" class="headerlink" title="某APK一键提取反编译"></a>某APK一键提取反编译</h3><p>apk放在此处</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211165828279.png" alt="image-20210211165828279"></p><p>运行软件测试</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211165902830.png" alt="image-20210211165902830"></p><p>结果保存于此</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211165902830.png" alt="image-20210211170513032"></p><p>提取的url地址</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211171140765.png" alt="image-20210211171140765"></p><h3 id="利用brup历史抓更多URL"><a href="#利用brup历史抓更多URL" class="headerlink" title="利用brup历史抓更多URL"></a>利用brup历史抓更多URL</h3><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211171245422.png" alt="image-20210211171245422"></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211171317138.png" alt="image-20210211171317138"></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211172122303.png" alt="image-20210211172122303"></p><h2 id="某IP无WEB框架下得第三方测试"><a href="#某IP无WEB框架下得第三方测试" class="headerlink" title="某IP无WEB框架下得第三方测试"></a>某IP无WEB框架下得第三方测试</h2><p><strong>思路</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">各种端口一通乱扫-思路</span><br><span class="line">各种接口一通乱扫-思路</span><br><span class="line">接口部分一通测试-思路</span><br></pre></td></tr></table></figure><p><strong>实践</strong></p><p>第一步：使用<code>nmap -sV 45.33.42.112</code>命令和黑暗搜索引擎（shodan、fofa、钟馗之眼）进行端口扫描； </p><p>第二步：使用多个工具或<code>site:网址</code>命令在百度搜索进行子域名查询； </p><p>第三步：在网站内部进行拥有其他功能的网站域名查询； </p><p>第四步：将搜到的子域名进行ip确定； </p><p>第五步：百度、Google搜索品牌名字，获得有用信息，比如类似域名等； </p><p>第六步：对所搜到信息或者所搜到的网站重复上面的步骤，直到搜索到没有信息为止； </p><p>第七步：对扫描到的信息进行检查整理，保留有用信息；</p><p> <code>网站：caredaily.com </code></p><p> <code>IP：121.40.216.101 </code></p><p> <code>开放协议：openSSH </code></p><p> <code>数据库：MongoDB </code></p><p><strong>注：在阿里云服务器上的有些网站打不开的原因可能是因为有防御检测，可以选择挂代理然后进行打开。</strong> </p><p>第八步：使用站长工具备案查询进行网站备案信息查询，查询该备案下面的其他网站和信息； </p><p>第九步：将搜到的数据库、中间件等信息进行检查，看是否有漏洞；</p><p><strong>注：如果有多个网站都打不开需要确定一下自己的ip是否被封了，是否需要进行挂代理换ip；</strong></p><h2 id="群友-WEB-授权测试下的服务测试"><a href="#群友-WEB-授权测试下的服务测试" class="headerlink" title="群友 WEB 授权测试下的服务测试"></a>群友 WEB 授权测试下的服务测试</h2><p>信息收集的过程（服务器搭建的相关知识）：</p><p>首先我们<strong>利用fafo shodan zoomeye这三个黑暗引擎进行搜索</strong>（搜索的时候需要<strong>把主机名去掉，这样我们可以得到它的子域名信息</strong>）（建议：用<strong>nmap进行更加全面扫描</strong>，因为这些第三方网站会遗漏掉一些东西，但可以作为参考）<br>通过获取的信息，通过<strong>不断更改网站端口进入</strong>，从而进一步获取到更加有价值的东西,有如知道对应使用的框架，<strong>使用的中间件，开放端口是否可以访问</strong>等等信息，进行搜索引擎找到对应的漏洞进行安全测试。</p><p>用<strong>百度、谷歌引擎 site：a.com</strong> 进行更多子域名的查询，获取到新的域名再回到第一步，获取更多关于目标网站的信息</p><p>可以用第三方网站（百度可得）进行<strong>网站子域名</strong>查询，获取到新的域名再回到第一步</p><p>可以用第三方网站（百度可得）进行<strong>网站旁注</strong>查询，获取到新的域名再回到第一步</p><p>可以用第三方网站（百度可得）进行<strong>类似域名查询</strong></p><p>​    <strong>备案查询</strong>（推荐：<a href="http://tool.chinaz.com),获取到新的域名再回到第一步/">http://tool.chinaz.com），获取到新的域名再回到第一步</a><br>​    通过<strong>网站名称和标题进行类型域名查</strong>询（百度、谷歌），可以找到新域名或者之前网站地址，再回到第一步<br>​    通过得到的<strong>中间件名称进行域名查询</strong>，比如 a.com php，获取到新的域名再回到第一步<br>​    通过 <strong>inrul：a 进行域名查询</strong>，获取到新的域名再回到第一步</p><p><strong>信息收集总结</strong></p><p>找ip</p><p>nmap扫端口</p><p>baidu,google查ip、子域名、关键字，相关站点site:xxx.com</p><p>fofa，zoomeye，shodan查ip、信息</p><p>查c段，备案，类似域名</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211211212614.png" alt="image-20210211211212614"></p><p>子域名</p><p><a href="https://securitytrails.com/list/apex_domain">https://securitytrails.com/list/apex_domain</a></p><h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p><a href="https://fofa.so/">https://fofa.so/</a></p><p><a href="http://tool.chinaz.com/">http://tool.chinaz.com</a></p><p><a href="https://www.shodan.io/">https://www.shodan.io/</a></p><p><a href="https://www.zoomeye.org/">https://www.zoomeye.org/</a></p><p><a href="https://nmap.org/download.html">https://nmap.org/download.html</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 信息收集 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>8、信息收集-架构，搭建，WAF</title>
       <link href="/post/e85e877e.html"/>
       <url>/post/e85e877e.html</url>
       
         <content type="html"><![CDATA[<h1 id="8、信息收集-架构，搭建，WAF"><a href="#8、信息收集-架构，搭建，WAF" class="headerlink" title="8、信息收集-架构，搭建，WAF"></a>8、信息收集-架构，搭建，WAF</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在安全测试中，信息收集是非常重要的一个环节，此环节的信息将影响到后续的成功几率，掌握信息的多少将决定发现漏洞机会大小，换言之决定着是否能完成目标的测试任务。也可以很直接的说：渗透的思路就是从信息收集这里开始，与大佬的差距也是从此开始！</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86.png" alt="信息收集"></p><h1 id="站点搭建分析"><a href="#站点搭建分析" class="headerlink" title="站点搭建分析"></a>站点搭建分析</h1><h2 id="搭建习惯-目录型站点"><a href="#搭建习惯-目录型站点" class="headerlink" title="搭建习惯-目录型站点"></a>搭建习惯-目录型站点</h2><p>在<strong>同一个服务器</strong>中，通过在<strong>不同目录</strong>下搭建不同的网站</p><p>​    sti.blcu.edu.cn 主网站,源码在主目录下<br>​    sti.blcu.edu.cn/bbs 网站 源码在主网站目录的下一个目录<br>​    一般其中一个网站出现漏洞，整个服务器都可能被攻破，可以<strong>通过目录扫描工具查到对应目录</strong></p><h2 id="搭建习惯-端口类站点"><a href="#搭建习惯-端口类站点" class="headerlink" title="搭建习惯-端口类站点"></a>搭建习惯-端口类站点</h2><p>在<strong>同一个服务器</strong>中，通过在<strong>不同端口</strong>下搭建不同的网站</p><p><strong>常见端口号是80端口，是主网站的入口</strong></p><p>如何查询：<strong>进行端口扫描，或者在网上搜索信息</strong></p><h2 id="搭建习惯-子域名站点"><a href="#搭建习惯-子域名站点" class="headerlink" title="搭建习惯-子域名站点"></a>搭建习惯-子域名站点</h2><p>goodlift.net bbs.goodlift.cn</p><ul><li><strong>在不同的域名下有着不同的CMS</strong></li><li>这里主要分为两种情况     <ul><li>第一种是在同一个服务器上，即IP地址是一样</li><li>第二种是不在同一个服务器上       <ul><li>在同一网段，即属于内网范畴</li><li>不在同一网段，我们就需要通过分站寻找一些主站的敏感信息，相关的网站多多少少存在联系</li></ul></li></ul></li></ul><h2 id="搭建习惯-类似域名站点"><a href="#搭建习惯-类似域名站点" class="headerlink" title="搭建习惯-类似域名站点"></a>搭建习惯-类似域名站点</h2><p>jmlsd.com</p><p><strong>一个网站可能有多个域名可以访问</strong></p><p>比如以下就是同一个网站的不同域名</p><p><a href="http://www.jmisd.com/">www.jmisd.com</a> <a href="http://www.jmisd.cn/">www.jmisd.cn</a> <a href="http://www.axgc168.com/">www.axgc168.com</a></p><p>我们可以通过编写脚本固定前面，修改后面的为com cn net这样来查询是否存在其他域名能够访问</p><p>固定后面的com，修改前面的来查询是否是否存在其他域名能够访问</p><p><strong>我们可以通过对不同域名（同个网站）进行分析，这样得到的消息越多，我们越知道漏洞所在</strong></p><h2 id="搭建习惯-旁注，C段站点"><a href="#搭建习惯-旁注，C段站点" class="headerlink" title="搭建习惯-旁注，C段站点"></a>搭建习惯-旁注，C段站点</h2><p><strong>同网段，相关数据找主站</strong> </p><p><strong>旁注：同服务器不同站点</strong> </p><p><strong>C段：不同服务器不同站点</strong></p><p>旁注</p><pre><code>同服务器不同站点。两个网站或者多个网站放在同一个服务器上，其中一个网站是你的目标，尝试去看别的网站是否有机会。前提条件：对方有多个站点服务器192.168.1.100www.a.comwww.b.com（目标）…目标是b.com，但由于技术有限，找不到漏洞，就可以先检查a的漏洞，对a进行安全测试，获取到相关的权限，进而跳转到b这个网站中去独立站点服务器    目标只有一个站点（目标就是它），这时候不能使用旁注    而是选择用c段</code></pre><p>C段</p><pre><code>同网段不同服务器不同站点。网站有一个或多个站点，通过服务器IP地址的网段来进行测试。192.168.1.100www.a.com（目标）www.b.com…192.168.1.101www.c.comwww.d.com…通过查询网段1-254，去获取101网段服务器权限，再通过服务器同一个网段目标主机来实施内网安全的测试方法，来获取指定网服务器的权限。例如一个服务器的某站点IP为192.168.1.101，那么就可以从这入手，拿到同一网段另一个服务器（站点IP假设为192.168.1.103）的权限。</code></pre><p>当一个漏洞找不到漏洞时，可以百度旁注查询，来获取其在同个服务器的不同网站，进行其进行安全测试</p><h2 id="搭建习惯-搭建软件特征站点"><a href="#搭建习惯-搭建软件特征站点" class="headerlink" title="搭建习惯-搭建软件特征站点"></a>搭建习惯-搭建软件特征站点</h2><p>phpstudy</p><p>wafw00f</p><p><strong>一体化搭建软件：</strong></p><p>宝塔（控制面板：端口号8888）、PHPSTUDY、WMAP、INMAP<br>搭建软件<strong>都有常规的数据库的默认账号密码</strong>，如果搭建者不去更改的话，数据库数据就很容易被泄漏。<br><strong>例：</strong><br>Apache/2.4.41(win32)OpenSSL/1.1.1c mod_fcgid/2.3.9a 宝塔 (信息很全基本上是搭建软件)<br>Apache/2.4.41(win32)OpenSSL/1.0.2j PHP/5.4.45 默认的安全设置(/phpmyadmin root/root)</p><h1 id="WAF防护分析"><a href="#WAF防护分析" class="headerlink" title="WAF防护分析"></a>WAF防护分析</h1><h2 id="什么是WAF应用？"><a href="#什么是WAF应用？" class="headerlink" title="什么是WAF应用？"></a>什么是WAF应用？</h2><p>Web应用防护系统(也称为：网站应用级入侵防御系统) 分为：硬件形式和软件形式。在安全公司单位购买的防火墙都是硬件，个人网站和小企业搭建都是软件。安全测试里的一道墙。</p><h2 id="快速识别WAF？"><a href="#快速识别WAF？" class="headerlink" title="快速识别WAF？"></a>快速识别WAF？</h2><ul><li><p>wafw00f     </p><ul><li><a href="https://github.com/EnableSecurity/wafw00f">下载地址</a></li><li><a href="https://www.cnblogs.com/qingchengzi/articles/13451885.html">使用教程</a></li></ul></li><li><p>按F12 查看X-Powered-By: WAF参数</p><p>返回数据包存在 X-Powered-By:WAF/2.0说明存在waf</p></li></ul><h2 id="识别WAF对于安全测试的意义？"><a href="#识别WAF对于安全测试的意义？" class="headerlink" title="识别WAF对于安全测试的意义？"></a>识别WAF对于安全测试的意义？</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">知道站点用waf之后，可以判断产商尝试绕过，而且知道站点存在waf之后，用扫描工具的时候留意点，容易被禁ip。</span><br></pre></td></tr></table></figure><h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="sti-blcu-bbs-目录型站点分析"><a href="#sti-blcu-bbs-目录型站点分析" class="headerlink" title="sti.blcu-bbs-目录型站点分析"></a>sti.blcu-bbs-目录型站点分析</h2><p>主站</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210223645690.png" alt="image-20210210223645690"></p><p>目录站点采用Discuz</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210223612140.png" alt="image-20210210223612140"></p><h2 id="web-0516jz-com-端口型站点分析"><a href="#web-0516jz-com-端口型站点分析" class="headerlink" title="web.0516jz.com-端口型站点分析"></a>web.0516jz.com-端口型站点分析</h2><p>80端口</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224055319.png" alt="image-20210210224055319"></p><p>8080端口</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224105646.png" alt="image-20210210224105646"></p><p><strong>端口设置，不同端口对应不同应用。比如ssh默认端口是22</strong></p><h2 id="goodlift-www-bbs-子域名两套CMS"><a href="#goodlift-www-bbs-子域名两套CMS" class="headerlink" title="goodlift-www.bbs-子域名两套CMS"></a>goodlift-<a href="http://www.bbs-子域名两套cms/">www.bbs-子域名两套CMS</a></h2><p><a href="http://www.goodlift.net/">www.goodlift.net</a></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224930142.png" alt="image-20210210224930142"></p><p>bbs.goodlift.net采用Discuz</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224416916.png" alt="image-20210210224416916"></p><p>两个站点可能不在同一个服务器</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224621998.png" alt="image-20210210224621998"></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224657227.png" alt="image-20210210224657227"></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224759966.png" alt="image-20210210224759966"></p><p>bbs.goodlift.net是用Discuz搭建的，而<a href="http://www.goodlift.net是用destoon/">www.goodlift.net是用destoon</a> b2b搭建的。</p><h2 id="jmlsd-cn-com-net等-各种常见域名后缀"><a href="#jmlsd-cn-com-net等-各种常见域名后缀" class="headerlink" title="jmlsd-cn.com.net等-各种常见域名后缀"></a>jmlsd-cn.com.net等-各种常见域名后缀</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210230225120.png" alt="image-20210210230225120"></p><p>多个域名，同一个网站</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210230250308.png" alt="image-20210210230250308"></p><h2 id="weipan-qqyewu-查询靶场同服务器站点"><a href="#weipan-qqyewu-查询靶场同服务器站点" class="headerlink" title="weipan-qqyewu-查询靶场同服务器站点"></a>weipan-qqyewu-查询靶场同服务器站点</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210231553166.png" alt="image-20210210231553166"></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210231610824.png" alt="image-20210210231610824"></p><h2 id="weipan-phpstudy-查询特定软件中间件等"><a href="#weipan-phpstudy-查询特定软件中间件等" class="headerlink" title="weipan-phpstudy-查询特定软件中间件等"></a>weipan-phpstudy-查询特定软件中间件等</h2><p>shodan搜索下面这条信息，接着查询出来站点的phpmyadmin目录，有些人搭建网站可能phpmystudy的密码没有改</p><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">Apache<span class="regexp">/2.4.23(Win32)OpenSSL/</span><span class="number">1.0</span><span class="number">.2</span>jPHP/<span class="number">5.4</span><span class="number">.45</span></span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210232152688.png" alt="image-20210210232152688"></p><p>上面宝塔，下面phpstudy</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210232735081.png" alt="image-20210210232735081"></p><h2 id="wafw00f-shodan（X-powered-BY：WAF）：147-92-47-120"><a href="#wafw00f-shodan（X-powered-BY：WAF）：147-92-47-120" class="headerlink" title="wafw00f-shodan（X-powered-BY：WAF）：147.92.47.120"></a>wafw00f-shodan（X-powered-BY：WAF）：147.92.47.120</h2><p> 判定waf的一个标准<img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211160231677.png" alt="image-20210211160231677"></p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210235503169.png" alt="image-20210210235503169"></p><h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p><a href="https://www.shodan.io/">https://www.shodan.io/</a></p><p><a href="https://www.webscan.cc/">https://www.webscan.cc/</a></p><p><a href="https://github.com/EnableSecurity/wafw00f">https://github.com/EnableSecurity/wafw00f</a></p>]]></content>
       
+      
+      <categories>
+          
+          <category> 学习笔记 </category>
+          
+          <category> 渗透测试 </category>
+          
+          <category> 信息收集 </category>
+          
+      </categories>
       
       
         <tags>
@@ -246,9 +275,9 @@
       
         <tags>
             
-            <tag> xss </tag>
-            
             <tag> dvwa </tag>
+            
+            <tag> xss </tag>
             
         </tags>
       
@@ -277,9 +306,9 @@
       
         <tags>
             
-            <tag> xss </tag>
-            
             <tag> dvwa </tag>
+            
+            <tag> xss </tag>
             
         </tags>
       
@@ -308,9 +337,9 @@
       
         <tags>
             
-            <tag> xss </tag>
-            
             <tag> dvwa </tag>
+            
+            <tag> xss </tag>
             
         </tags>
       
@@ -401,9 +430,9 @@
       
         <tags>
             
-            <tag> dvwa </tag>
-            
             <tag> 命令执行 </tag>
+            
+            <tag> dvwa </tag>
             
         </tags>
       

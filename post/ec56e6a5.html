@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>9、信息收集-APP及其他资产等 | Mikasu's Blog</title><meta name="keywords" content="信息收集"><meta name="author" content="Mikasu,1967458972@qq.com"><meta name="copyright" content="Mikasu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referer" content="no-referer"><meta name="description" content="9、信息收集-APP及其他资产等前言 在安全测试中，若WEB无法取得进展或无WEB的情况下，我们就需要借助APP或者其他资产进行在线信息收集，从而展开后续渗透，那么其中的信息收集就尤为重要。 APP提取一键反编译提取需要提取的apk文件放在apps文件夹内，直接运行apkAnalyser.exe 提取出来的文件会在result中 urls一般有文件的url链接  通过漏了个大洞文件夹中的apk数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9、信息收集-APP及其他资产等">
+<meta property="og:url" content="https://www.yuyapeng.cn/post/ec56e6a5.html">
+<meta property="og:site_name" content="Mikasu&#39;s Blog">
+<meta property="og:description" content="9、信息收集-APP及其他资产等前言 在安全测试中，若WEB无法取得进展或无WEB的情况下，我们就需要借助APP或者其他资产进行在线信息收集，从而展开后续渗透，那么其中的信息收集就尤为重要。 APP提取一键反编译提取需要提取的apk文件放在apps文件夹内，直接运行apkAnalyser.exe 提取出来的文件会在result中 urls一般有文件的url链接  通过漏了个大洞文件夹中的apk数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg">
+<meta property="article:published_time" content="2022-01-28T07:58:37.000Z">
+<meta property="article:modified_time" content="2022-01-28T07:58:48.245Z">
+<meta property="article:author" content="Mikasu">
+<meta property="article:tag" content="信息收集">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg"><link rel="shortcut icon" href="https://gitee.com/littlefiremonkey/picture/raw/master/index.png"><link rel="canonical" href="https://www.yuyapeng.cn/post/ec56e6a5"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '9、信息收集-APP及其他资产等',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-28 15:58:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mikasu's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">9、信息收集-APP及其他资产等</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-28T07:58:37.000Z" title="发表于 2022-01-28 15:58:37">2022-01-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-28T07:58:48.245Z" title="更新于 2022-01-28 15:58:48">2022-01-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="9、信息收集-APP及其他资产等"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="9、信息收集-APP及其他资产等"><a href="#9、信息收集-APP及其他资产等" class="headerlink" title="9、信息收集-APP及其他资产等"></a>9、信息收集-APP及其他资产等</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86123.png" alt="信息收集123"></p>
+<p>在安全测试中，若WEB无法取得进展或无WEB的情况下，我们就需要<strong>借助APP或者其他资产进行在线信息收集</strong>，从而展开后续渗透，那么其中的信息收集就尤为重要。</p>
+<h2 id="APP提取一键反编译提取"><a href="#APP提取一键反编译提取" class="headerlink" title="APP提取一键反编译提取"></a>APP提取一键反编译提取</h2><p>需要提取的apk文件放在apps文件夹内，直接运行apkAnalyser.exe</p>
+<p>提取出来的文件会在result中 urls一般有文件的url链接</p>
+<p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20220128142717760.png" alt="image-20220128142717760"></p>
+<p>通过<strong>漏了个大洞</strong>文件夹中的apk数据提取，根据使用指南文件就可以对app进行信息提取</p>
+<h2 id="APP抓数据包进行工具配合"><a href="#APP抓数据包进行工具配合" class="headerlink" title="APP抓数据包进行工具配合"></a>APP抓数据包进行工具配合</h2><p>首先，我们需要通过<strong>burpsuite进行代理的ip地址和端口绑定</strong>，将手机的wifi设置代理，<strong>设置相同的ip地址和端口</strong>。</p>
+<p>接着，在burpsuite软件中，我们<strong>不采取截取的方式</strong>，只点击进去<strong>HTTP history</strong>，然后通过点击手机对应要安全测试的app软件，通过点击软件中各个按钮来进行对应数据报的收集，从而知道更多的相关网站，<strong>达到了从app层面到web层面的转换，为后续安全测试提供更多可能性。</strong></p>
+<p>接着，在burpsuite软件中，我们不采取截取的方式，只点击进去HTTP history，然后通过点击手机对应要安全测试的app软件，通过点击软件中各个按钮来进行对应数据报的收集，从而知道更多的相关网站，达到了从app层面到web层面的转换，为后续安全测试提供更多可能性。</p>
+<p>如果没有找到app对应的url地址/网站，我们就需要<strong>对这个app进行反编译的处理，前提懂java语言</strong></p>
+<h2 id="各种第三方应用相关探针技术"><a href="#各种第三方应用相关探针技术" class="headerlink" title="各种第三方应用相关探针技术"></a>各种第三方应用相关探针技术</h2><p>1、使用<strong>nmap软件</strong>进行端口扫描，通过所得端口得到后续进行安全测试的思路（这个是最全面的，但所需要的时间可能最长）</p>
+<p>2、使用<strong>第三方的网站（黑暗引擎）</strong>进行信息收集（会提供对应网站的开放端口，服务等等），比较有用的几个</p>
+<p><a target="_blank" rel="noopener" href="https://fofa.so/">https://fofa.so/</a> （推荐）<br><a target="_blank" rel="noopener" href="https://www.shodan.io/">https://www.shodan.io/</a><br><a target="_blank" rel="noopener" href="https://www.zoomeye.org/">https://www.zoomeye.org/</a></p>
+<p>3、通过获取的信息，通过不断更改网站端口进入，从而进一步获取到更加有价值的东西,有如知道<strong>对应使用的框架，使用的中间件，开放端口</strong>是否可以访问等等信息，可以进行搜索引擎找到对应的漏洞进行安全测试（如果输入遇到账号密码的情况，可以尝试账号密码都是admin这种弱口令，万一进去了呢）</p>
+<h2 id="各种服务接口信息相关探针技术"><a href="#各种服务接口信息相关探针技术" class="headerlink" title="各种服务接口信息相关探针技术"></a>各种服务接口信息相关探针技术</h2><h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="APP提取及抓包及后续配合"><a href="#APP提取及抓包及后续配合" class="headerlink" title="APP提取及抓包及后续配合"></a>APP提取及抓包及后续配合</h2><h3 id="某APK一键提取反编译"><a href="#某APK一键提取反编译" class="headerlink" title="某APK一键提取反编译"></a>某APK一键提取反编译</h3><p>apk放在此处</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211165828279.png" alt="image-20210211165828279"></p>
+<p>运行软件测试</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211165902830.png" alt="image-20210211165902830"></p>
+<p>结果保存于此</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211165902830.png" alt="image-20210211170513032"></p>
+<p>提取的url地址</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211171140765.png" alt="image-20210211171140765"></p>
+<h3 id="利用brup历史抓更多URL"><a href="#利用brup历史抓更多URL" class="headerlink" title="利用brup历史抓更多URL"></a>利用brup历史抓更多URL</h3><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211171245422.png" alt="image-20210211171245422"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211171317138.png" alt="image-20210211171317138"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211172122303.png" alt="image-20210211172122303"></p>
+<h2 id="某IP无WEB框架下得第三方测试"><a href="#某IP无WEB框架下得第三方测试" class="headerlink" title="某IP无WEB框架下得第三方测试"></a>某IP无WEB框架下得第三方测试</h2><p><strong>思路</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">各种端口一通乱扫-思路</span><br><span class="line">各种接口一通乱扫-思路</span><br><span class="line">接口部分一通测试-思路</span><br></pre></td></tr></table></figure>
+
+<p><strong>实践</strong></p>
+<p>第一步：使用<code>nmap -sV 45.33.42.112</code>命令和黑暗搜索引擎（shodan、fofa、钟馗之眼）进行端口扫描； </p>
+<p>第二步：使用多个工具或<code>site:网址</code>命令在百度搜索进行子域名查询； </p>
+<p>第三步：在网站内部进行拥有其他功能的网站域名查询； </p>
+<p>第四步：将搜到的子域名进行ip确定； </p>
+<p>第五步：百度、Google搜索品牌名字，获得有用信息，比如类似域名等； </p>
+<p>第六步：对所搜到信息或者所搜到的网站重复上面的步骤，直到搜索到没有信息为止； </p>
+<p>第七步：对扫描到的信息进行检查整理，保留有用信息；</p>
+<p> <code>网站：caredaily.com </code></p>
+<p> <code>IP：121.40.216.101 </code></p>
+<p> <code>开放协议：openSSH </code></p>
+<p> <code>数据库：MongoDB </code></p>
+<p><strong>注：在阿里云服务器上的有些网站打不开的原因可能是因为有防御检测，可以选择挂代理然后进行打开。</strong> </p>
+<p>第八步：使用站长工具备案查询进行网站备案信息查询，查询该备案下面的其他网站和信息； </p>
+<p>第九步：将搜到的数据库、中间件等信息进行检查，看是否有漏洞；</p>
+<p><strong>注：如果有多个网站都打不开需要确定一下自己的ip是否被封了，是否需要进行挂代理换ip；</strong></p>
+<h2 id="群友-WEB-授权测试下的服务测试"><a href="#群友-WEB-授权测试下的服务测试" class="headerlink" title="群友 WEB 授权测试下的服务测试"></a>群友 WEB 授权测试下的服务测试</h2><p>信息收集的过程（服务器搭建的相关知识）：</p>
+<p>首先我们<strong>利用fafo shodan zoomeye这三个黑暗引擎进行搜索</strong>（搜索的时候需要<strong>把主机名去掉，这样我们可以得到它的子域名信息</strong>）（建议：用<strong>nmap进行更加全面扫描</strong>，因为这些第三方网站会遗漏掉一些东西，但可以作为参考）<br>通过获取的信息，通过<strong>不断更改网站端口进入</strong>，从而进一步获取到更加有价值的东西,有如知道对应使用的框架，<strong>使用的中间件，开放端口是否可以访问</strong>等等信息，进行搜索引擎找到对应的漏洞进行安全测试。</p>
+<p>用<strong>百度、谷歌引擎 site：a.com</strong> 进行更多子域名的查询，获取到新的域名再回到第一步，获取更多关于目标网站的信息</p>
+<p>可以用第三方网站（百度可得）进行<strong>网站子域名</strong>查询，获取到新的域名再回到第一步</p>
+<p>可以用第三方网站（百度可得）进行<strong>网站旁注</strong>查询，获取到新的域名再回到第一步</p>
+<p>可以用第三方网站（百度可得）进行<strong>类似域名查询</strong></p>
+<p>​    <strong>备案查询</strong>（推荐：<a target="_blank" rel="noopener" href="http://tool.chinaz.com),获取到新的域名再回到第一步/">http://tool.chinaz.com），获取到新的域名再回到第一步</a><br>​    通过<strong>网站名称和标题进行类型域名查</strong>询（百度、谷歌），可以找到新域名或者之前网站地址，再回到第一步<br>​    通过得到的<strong>中间件名称进行域名查询</strong>，比如 a.com php，获取到新的域名再回到第一步<br>​    通过 <strong>inrul：a 进行域名查询</strong>，获取到新的域名再回到第一步</p>
+<p><strong>信息收集总结</strong></p>
+<p>找ip</p>
+<p>nmap扫端口</p>
+<p>baidu,google查ip、子域名、关键字，相关站点site:xxx.com</p>
+<p>fofa，zoomeye，shodan查ip、信息</p>
+<p>查c段，备案，类似域名</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211211212614.png" alt="image-20210211211212614"></p>
+<p>子域名</p>
+<p><a target="_blank" rel="noopener" href="https://securitytrails.com/list/apex_domain">https://securitytrails.com/list/apex_domain</a></p>
+<h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p><a target="_blank" rel="noopener" href="https://fofa.so/">https://fofa.so/</a></p>
+<p><a target="_blank" rel="noopener" href="http://tool.chinaz.com/">http://tool.chinaz.com</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.shodan.io/">https://www.shodan.io/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zoomeye.org/">https://www.zoomeye.org/</a></p>
+<p><a target="_blank" rel="noopener" href="https://nmap.org/download.html">https://nmap.org/download.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1967458972@qq.com">Mikasu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.yuyapeng.cn/post/ec56e6a5.html">https://www.yuyapeng.cn/post/ec56e6a5.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.yuyapeng.cn" target="_blank">Mikasu's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">信息收集</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/e85e877e.html"><img class="next-cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">8、信息收集-架构，搭建，WAF</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-27</div><div class="title">8、信息收集-架构，搭建，WAF</div></div></a></div><div><a href="/post/432aa293.html" title="7、信息收集-CDN绕过技术"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-26</div><div class="title">7、信息收集-CDN绕过技术</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mikasu</div><div class="author-info__description">大三学生，CTFer</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/M1kasu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/M1kasu" target="_blank" title=""><i class="iconfont  icon-github"></i></a><a class="social-icon" href="https://space.bilibili.com/399414396/" target="_blank" title=""><i class="iconfont  icon-bilibili"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1967458972" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="mailto:1967458972@qq.com" target="_blank" title=""><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://blog.csdn.net/memery_key" target="_blank" title=""><i class="iconfont icon-csdn"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问小站，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#9%E3%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-APP%E5%8F%8A%E5%85%B6%E4%BB%96%E8%B5%84%E4%BA%A7%E7%AD%89"><span class="toc-number">1.</span> <span class="toc-text">9、信息收集-APP及其他资产等</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#APP%E6%8F%90%E5%8F%96%E4%B8%80%E9%94%AE%E5%8F%8D%E7%BC%96%E8%AF%91%E6%8F%90%E5%8F%96"><span class="toc-number">2.1.</span> <span class="toc-text">APP提取一键反编译提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#APP%E6%8A%93%E6%95%B0%E6%8D%AE%E5%8C%85%E8%BF%9B%E8%A1%8C%E5%B7%A5%E5%85%B7%E9%85%8D%E5%90%88"><span class="toc-number">2.2.</span> <span class="toc-text">APP抓数据包进行工具配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E6%8E%A2%E9%92%88%E6%8A%80%E6%9C%AF"><span class="toc-number">2.3.</span> <span class="toc-text">各种第三方应用相关探针技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3%E4%BF%A1%E6%81%AF%E7%9B%B8%E5%85%B3%E6%8E%A2%E9%92%88%E6%8A%80%E6%9C%AF"><span class="toc-number">2.4.</span> <span class="toc-text">各种服务接口信息相关探针技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E6%A1%88%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">演示案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#APP%E6%8F%90%E5%8F%96%E5%8F%8A%E6%8A%93%E5%8C%85%E5%8F%8A%E5%90%8E%E7%BB%AD%E9%85%8D%E5%90%88"><span class="toc-number">3.1.</span> <span class="toc-text">APP提取及抓包及后续配合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%90APK%E4%B8%80%E9%94%AE%E6%8F%90%E5%8F%96%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="toc-number">3.1.1.</span> <span class="toc-text">某APK一键提取反编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8brup%E5%8E%86%E5%8F%B2%E6%8A%93%E6%9B%B4%E5%A4%9AURL"><span class="toc-number">3.1.2.</span> <span class="toc-text">利用brup历史抓更多URL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%90IP%E6%97%A0WEB%E6%A1%86%E6%9E%B6%E4%B8%8B%E5%BE%97%E7%AC%AC%E4%B8%89%E6%96%B9%E6%B5%8B%E8%AF%95"><span class="toc-number">3.2.</span> <span class="toc-text">某IP无WEB框架下得第三方测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BE%A4%E5%8F%8B-WEB-%E6%8E%88%E6%9D%83%E6%B5%8B%E8%AF%95%E4%B8%8B%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95"><span class="toc-number">3.3.</span> <span class="toc-text">群友 WEB 授权测试下的服务测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E8%B5%84%E6%BA%90"><span class="toc-number">4.</span> <span class="toc-text">涉及资源</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/ec56e6a5.html" title="9、信息收集-APP及其他资产等"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="9、信息收集-APP及其他资产等"/></a><div class="content"><a class="title" href="/post/ec56e6a5.html" title="9、信息收集-APP及其他资产等">9、信息收集-APP及其他资产等</a><time datetime="2022-01-28T07:58:37.000Z" title="发表于 2022-01-28 15:58:37">2022-01-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8、信息收集-架构，搭建，WAF"/></a><div class="content"><a class="title" href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF">8、信息收集-架构，搭建，WAF</a><time datetime="2022-01-27T03:58:24.000Z" title="发表于 2022-01-27 11:58:24">2022-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/736958.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="7、信息收集-CDN绕过技术"/></a><div class="content"><a class="title" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术">7、信息收集-CDN绕过技术</a><time datetime="2022-01-26T14:33:21.000Z" title="发表于 2022-01-26 22:33:21">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/20cf6262.html" title="6、基础入门-加密编码算法"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="6、基础入门-加密编码算法"/></a><div class="content"><a class="title" href="/post/20cf6262.html" title="6、基础入门-加密编码算法">6、基础入门-加密编码算法</a><time datetime="2022-01-26T11:42:03.000Z" title="发表于 2022-01-26 19:42:03">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/641f2e76.html" title="5、基础入门-系统及数据库等"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/735075.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="5、基础入门-系统及数据库等"/></a><div class="content"><a class="title" href="/post/641f2e76.html" title="5、基础入门-系统及数据库等">5、基础入门-系统及数据库等</a><time datetime="2022-01-26T11:35:46.000Z" title="发表于 2022-01-26 19:35:46">2022-01-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/111392.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mikasu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
