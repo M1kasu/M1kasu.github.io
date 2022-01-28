@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>8、信息收集-架构，搭建，WAF | Mikasu's Blog</title><meta name="keywords" content="信息收集"><meta name="author" content="Mikasu,1967458972@qq.com"><meta name="copyright" content="Mikasu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referer" content="no-referer"><meta name="description" content="8、信息收集-架构，搭建，WAF前言在安全测试中，信息收集是非常重要的一个环节，此环节的信息将影响到后续的成功几率，掌握信息的多少将决定发现漏洞机会大小，换言之决定着是否能完成目标的测试任务。也可以很直接的说：渗透的思路就是从信息收集这里开始，与大佬的差距也是从此开始！  站点搭建分析搭建习惯-目录型站点在同一个服务器中，通过在不同目录下搭建不同的网站 ​    sti.blcu.edu.cn 主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8、信息收集-架构，搭建，WAF">
+<meta property="og:url" content="https://www.yuyapeng.cn/post/e85e877e.html">
+<meta property="og:site_name" content="Mikasu&#39;s Blog">
+<meta property="og:description" content="8、信息收集-架构，搭建，WAF前言在安全测试中，信息收集是非常重要的一个环节，此环节的信息将影响到后续的成功几率，掌握信息的多少将决定发现漏洞机会大小，换言之决定着是否能完成目标的测试任务。也可以很直接的说：渗透的思路就是从信息收集这里开始，与大佬的差距也是从此开始！  站点搭建分析搭建习惯-目录型站点在同一个服务器中，通过在不同目录下搭建不同的网站 ​    sti.blcu.edu.cn 主">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg">
+<meta property="article:published_time" content="2022-01-27T03:58:24.000Z">
+<meta property="article:modified_time" content="2022-01-27T04:14:54.727Z">
+<meta property="article:author" content="Mikasu">
+<meta property="article:tag" content="信息收集">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg"><link rel="shortcut icon" href="https://gitee.com/littlefiremonkey/picture/raw/master/index.png"><link rel="canonical" href="https://www.yuyapeng.cn/post/e85e877e"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '8、信息收集-架构，搭建，WAF',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-27 12:14:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mikasu's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">8、信息收集-架构，搭建，WAF</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-27T03:58:24.000Z" title="发表于 2022-01-27 11:58:24">2022-01-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-27T04:14:54.727Z" title="更新于 2022-01-27 12:14:54">2022-01-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="8、信息收集-架构，搭建，WAF"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="8、信息收集-架构，搭建，WAF"><a href="#8、信息收集-架构，搭建，WAF" class="headerlink" title="8、信息收集-架构，搭建，WAF"></a>8、信息收集-架构，搭建，WAF</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在安全测试中，信息收集是非常重要的一个环节，此环节的信息将影响到后续的成功几率，掌握信息的多少将决定发现漏洞机会大小，换言之决定着是否能完成目标的测试任务。也可以很直接的说：渗透的思路就是从信息收集这里开始，与大佬的差距也是从此开始！</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86.png" alt="信息收集"></p>
+<h1 id="站点搭建分析"><a href="#站点搭建分析" class="headerlink" title="站点搭建分析"></a>站点搭建分析</h1><h2 id="搭建习惯-目录型站点"><a href="#搭建习惯-目录型站点" class="headerlink" title="搭建习惯-目录型站点"></a>搭建习惯-目录型站点</h2><p>在<strong>同一个服务器</strong>中，通过在<strong>不同目录</strong>下搭建不同的网站</p>
+<p>​    sti.blcu.edu.cn 主网站,源码在主目录下<br>​    sti.blcu.edu.cn/bbs 网站 源码在主网站目录的下一个目录<br>​    一般其中一个网站出现漏洞，整个服务器都可能被攻破，可以<strong>通过目录扫描工具查到对应目录</strong></p>
+<h2 id="搭建习惯-端口类站点"><a href="#搭建习惯-端口类站点" class="headerlink" title="搭建习惯-端口类站点"></a>搭建习惯-端口类站点</h2><p>在<strong>同一个服务器</strong>中，通过在<strong>不同端口</strong>下搭建不同的网站</p>
+<p><strong>常见端口号是80端口，是主网站的入口</strong></p>
+<p>如何查询：<strong>进行端口扫描，或者在网上搜索信息</strong></p>
+<h2 id="搭建习惯-子域名站点"><a href="#搭建习惯-子域名站点" class="headerlink" title="搭建习惯-子域名站点"></a>搭建习惯-子域名站点</h2><p>goodlift.net bbs.goodlift.cn</p>
+<ul>
+<li><strong>在不同的域名下有着不同的CMS</strong></li>
+<li>这里主要分为两种情况     <ul>
+<li>第一种是在同一个服务器上，即IP地址是一样</li>
+<li>第二种是不在同一个服务器上       <ul>
+<li>在同一网段，即属于内网范畴</li>
+<li>不在同一网段，我们就需要通过分站寻找一些主站的敏感信息，相关的网站多多少少存在联系</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="搭建习惯-类似域名站点"><a href="#搭建习惯-类似域名站点" class="headerlink" title="搭建习惯-类似域名站点"></a>搭建习惯-类似域名站点</h2><p>jmlsd.com</p>
+<p><strong>一个网站可能有多个域名可以访问</strong></p>
+<p>比如以下就是同一个网站的不同域名</p>
+<p><a target="_blank" rel="noopener" href="http://www.jmisd.com/">www.jmisd.com</a> <a target="_blank" rel="noopener" href="http://www.jmisd.cn/">www.jmisd.cn</a> <a target="_blank" rel="noopener" href="http://www.axgc168.com/">www.axgc168.com</a></p>
+<p>我们可以通过编写脚本固定前面，修改后面的为com cn net这样来查询是否存在其他域名能够访问</p>
+<p>固定后面的com，修改前面的来查询是否是否存在其他域名能够访问</p>
+<p><strong>我们可以通过对不同域名（同个网站）进行分析，这样得到的消息越多，我们越知道漏洞所在</strong></p>
+<h2 id="搭建习惯-旁注，C段站点"><a href="#搭建习惯-旁注，C段站点" class="headerlink" title="搭建习惯-旁注，C段站点"></a>搭建习惯-旁注，C段站点</h2><p><strong>同网段，相关数据找主站</strong> </p>
+<p><strong>旁注：同服务器不同站点</strong> </p>
+<p><strong>C段：不同服务器不同站点</strong></p>
+<p>旁注</p>
+<pre><code>同服务器不同站点。两个网站或者多个网站放在同一个服务器上，其中一个网站是你的目标，尝试去看别的网站是否有机会。
+前提条件：对方有多个站点服务器
+192.168.1.100
+www.a.com
+www.b.com（目标）
+…
+目标是b.com，但由于技术有限，找不到漏洞，就可以先检查a的漏洞，对a进行安全测试，获取到相关的权限，进而跳转到b这个网站中去
+独立站点服务器
+    目标只有一个站点（目标就是它），这时候不能使用旁注
+    而是选择用c段
+</code></pre>
+<p>C段</p>
+<pre><code>同网段不同服务器不同站点。网站有一个或多个站点，通过服务器IP地址的网段来进行测试。
+
+192.168.1.100
+www.a.com（目标）
+www.b.com
+…
+
+192.168.1.101
+www.c.com
+www.d.com
+…
+通过查询网段1-254，去获取101网段服务器权限，再通过服务器同一个网段目标主机来实施内网安全的测试方法，来获取指定网服务器的权限。
+例如一个服务器的某站点IP为192.168.1.101，那么就可以从这入手，拿到同一网段另一个服务器（站点IP假设为192.168.1.103）的权限。
+</code></pre>
+<p>当一个漏洞找不到漏洞时，可以百度旁注查询，来获取其在同个服务器的不同网站，进行其进行安全测试</p>
+<h2 id="搭建习惯-搭建软件特征站点"><a href="#搭建习惯-搭建软件特征站点" class="headerlink" title="搭建习惯-搭建软件特征站点"></a>搭建习惯-搭建软件特征站点</h2><p>phpstudy</p>
+<p>wafw00f</p>
+<p><strong>一体化搭建软件：</strong></p>
+<p>宝塔（控制面板：端口号8888）、PHPSTUDY、WMAP、INMAP<br>搭建软件<strong>都有常规的数据库的默认账号密码</strong>，如果搭建者不去更改的话，数据库数据就很容易被泄漏。<br><strong>例：</strong><br>Apache/2.4.41(win32)OpenSSL/1.1.1c mod_fcgid/2.3.9a 宝塔 (信息很全基本上是搭建软件)<br>Apache/2.4.41(win32)OpenSSL/1.0.2j PHP/5.4.45 默认的安全设置(/phpmyadmin root/root)</p>
+<h1 id="WAF防护分析"><a href="#WAF防护分析" class="headerlink" title="WAF防护分析"></a>WAF防护分析</h1><h2 id="什么是WAF应用？"><a href="#什么是WAF应用？" class="headerlink" title="什么是WAF应用？"></a>什么是WAF应用？</h2><p>Web应用防护系统(也称为：网站应用级入侵防御系统) 分为：硬件形式和软件形式。在安全公司单位购买的防火墙都是硬件，个人网站和小企业搭建都是软件。安全测试里的一道墙。</p>
+<h2 id="快速识别WAF？"><a href="#快速识别WAF？" class="headerlink" title="快速识别WAF？"></a>快速识别WAF？</h2><ul>
+<li><p>wafw00f     </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/EnableSecurity/wafw00f">下载地址</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qingchengzi/articles/13451885.html">使用教程</a></li>
+</ul>
+</li>
+<li><p>按F12 查看X-Powered-By: WAF参数</p>
+<p>返回数据包存在 X-Powered-By:WAF/2.0说明存在waf</p>
+</li>
+</ul>
+<h2 id="识别WAF对于安全测试的意义？"><a href="#识别WAF对于安全测试的意义？" class="headerlink" title="识别WAF对于安全测试的意义？"></a>识别WAF对于安全测试的意义？</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">知道站点用waf之后，可以判断产商尝试绕过，而且知道站点存在waf之后，用扫描工具的时候留意点，容易被禁ip。</span><br></pre></td></tr></table></figure>
+
+<h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="sti-blcu-bbs-目录型站点分析"><a href="#sti-blcu-bbs-目录型站点分析" class="headerlink" title="sti.blcu-bbs-目录型站点分析"></a>sti.blcu-bbs-目录型站点分析</h2><p>主站</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210223645690.png" alt="image-20210210223645690"></p>
+<p>目录站点采用Discuz</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210223612140.png" alt="image-20210210223612140"></p>
+<h2 id="web-0516jz-com-端口型站点分析"><a href="#web-0516jz-com-端口型站点分析" class="headerlink" title="web.0516jz.com-端口型站点分析"></a>web.0516jz.com-端口型站点分析</h2><p>80端口</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224055319.png" alt="image-20210210224055319"></p>
+<p>8080端口</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224105646.png" alt="image-20210210224105646"></p>
+<p><strong>端口设置，不同端口对应不同应用。比如ssh默认端口是22</strong></p>
+<h2 id="goodlift-www-bbs-子域名两套CMS"><a href="#goodlift-www-bbs-子域名两套CMS" class="headerlink" title="goodlift-www.bbs-子域名两套CMS"></a>goodlift-<a target="_blank" rel="noopener" href="http://www.bbs-子域名两套cms/">www.bbs-子域名两套CMS</a></h2><p><a target="_blank" rel="noopener" href="http://www.goodlift.net/">www.goodlift.net</a></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224930142.png" alt="image-20210210224930142"></p>
+<p>bbs.goodlift.net采用Discuz</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224416916.png" alt="image-20210210224416916"></p>
+<p>两个站点可能不在同一个服务器</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224621998.png" alt="image-20210210224621998"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224657227.png" alt="image-20210210224657227"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210224759966.png" alt="image-20210210224759966"></p>
+<p>bbs.goodlift.net是用Discuz搭建的，而<a target="_blank" rel="noopener" href="http://www.goodlift.net是用destoon/">www.goodlift.net是用destoon</a> b2b搭建的。</p>
+<h2 id="jmlsd-cn-com-net等-各种常见域名后缀"><a href="#jmlsd-cn-com-net等-各种常见域名后缀" class="headerlink" title="jmlsd-cn.com.net等-各种常见域名后缀"></a>jmlsd-cn.com.net等-各种常见域名后缀</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210230225120.png" alt="image-20210210230225120"></p>
+<p>多个域名，同一个网站</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210230250308.png" alt="image-20210210230250308"></p>
+<h2 id="weipan-qqyewu-查询靶场同服务器站点"><a href="#weipan-qqyewu-查询靶场同服务器站点" class="headerlink" title="weipan-qqyewu-查询靶场同服务器站点"></a>weipan-qqyewu-查询靶场同服务器站点</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210231553166.png" alt="image-20210210231553166"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210231610824.png" alt="image-20210210231610824"></p>
+<h2 id="weipan-phpstudy-查询特定软件中间件等"><a href="#weipan-phpstudy-查询特定软件中间件等" class="headerlink" title="weipan-phpstudy-查询特定软件中间件等"></a>weipan-phpstudy-查询特定软件中间件等</h2><p>shodan搜索下面这条信息，接着查询出来站点的phpmyadmin目录，有些人搭建网站可能phpmystudy的密码没有改</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">Apache<span class="regexp">/2.4.23(Win32)OpenSSL/</span><span class="number">1.0</span><span class="number">.2</span>jPHP/<span class="number">5.4</span><span class="number">.45</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210232152688.png" alt="image-20210210232152688"></p>
+<p>上面宝塔，下面phpstudy</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210232735081.png" alt="image-20210210232735081"></p>
+<h2 id="wafw00f-shodan（X-powered-BY：WAF）：147-92-47-120"><a href="#wafw00f-shodan（X-powered-BY：WAF）：147-92-47-120" class="headerlink" title="wafw00f-shodan（X-powered-BY：WAF）：147.92.47.120"></a>wafw00f-shodan（X-powered-BY：WAF）：147.92.47.120</h2><p> 判定waf的一个标准<img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210211160231677.png" alt="image-20210211160231677"></p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210210235503169.png" alt="image-20210210235503169"></p>
+<h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p><a target="_blank" rel="noopener" href="https://www.shodan.io/">https://www.shodan.io/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.webscan.cc/">https://www.webscan.cc/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/EnableSecurity/wafw00f">https://github.com/EnableSecurity/wafw00f</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1967458972@qq.com">Mikasu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.yuyapeng.cn/post/e85e877e.html">https://www.yuyapeng.cn/post/e85e877e.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.yuyapeng.cn" target="_blank">Mikasu's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">信息收集</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/432aa293.html"><img class="next-cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">7、信息收集-CDN绕过技术</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/432aa293.html" title="7、信息收集-CDN绕过技术"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-26</div><div class="title">7、信息收集-CDN绕过技术</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mikasu</div><div class="author-info__description">大三学生，CTFer</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/M1kasu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/M1kasu" target="_blank" title=""><i class="iconfont  icon-github"></i></a><a class="social-icon" href="https://space.bilibili.com/399414396/" target="_blank" title=""><i class="iconfont  icon-bilibili"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1967458972" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="mailto:1967458972@qq.com" target="_blank" title=""><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://blog.csdn.net/memery_key" target="_blank" title=""><i class="iconfont icon-csdn"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问小站，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#8%E3%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E6%9E%B6%E6%9E%84%EF%BC%8C%E6%90%AD%E5%BB%BA%EF%BC%8CWAF"><span class="toc-number">1.</span> <span class="toc-text">8、信息收集-架构，搭建，WAF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E6%90%AD%E5%BB%BA%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">站点搭建分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%B9%A0%E6%83%AF-%E7%9B%AE%E5%BD%95%E5%9E%8B%E7%AB%99%E7%82%B9"><span class="toc-number">3.1.</span> <span class="toc-text">搭建习惯-目录型站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%B9%A0%E6%83%AF-%E7%AB%AF%E5%8F%A3%E7%B1%BB%E7%AB%99%E7%82%B9"><span class="toc-number">3.2.</span> <span class="toc-text">搭建习惯-端口类站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%B9%A0%E6%83%AF-%E5%AD%90%E5%9F%9F%E5%90%8D%E7%AB%99%E7%82%B9"><span class="toc-number">3.3.</span> <span class="toc-text">搭建习惯-子域名站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%B9%A0%E6%83%AF-%E7%B1%BB%E4%BC%BC%E5%9F%9F%E5%90%8D%E7%AB%99%E7%82%B9"><span class="toc-number">3.4.</span> <span class="toc-text">搭建习惯-类似域名站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%B9%A0%E6%83%AF-%E6%97%81%E6%B3%A8%EF%BC%8CC%E6%AE%B5%E7%AB%99%E7%82%B9"><span class="toc-number">3.5.</span> <span class="toc-text">搭建习惯-旁注，C段站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%B9%A0%E6%83%AF-%E6%90%AD%E5%BB%BA%E8%BD%AF%E4%BB%B6%E7%89%B9%E5%BE%81%E7%AB%99%E7%82%B9"><span class="toc-number">3.6.</span> <span class="toc-text">搭建习惯-搭建软件特征站点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WAF%E9%98%B2%E6%8A%A4%E5%88%86%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">WAF防护分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFWAF%E5%BA%94%E7%94%A8%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">什么是WAF应用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%ABWAF%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">快速识别WAF？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%86%E5%88%ABWAF%E5%AF%B9%E4%BA%8E%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E7%9A%84%E6%84%8F%E4%B9%89%EF%BC%9F"><span class="toc-number">4.3.</span> <span class="toc-text">识别WAF对于安全测试的意义？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E6%A1%88%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">演示案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sti-blcu-bbs-%E7%9B%AE%E5%BD%95%E5%9E%8B%E7%AB%99%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">5.1.</span> <span class="toc-text">sti.blcu-bbs-目录型站点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-0516jz-com-%E7%AB%AF%E5%8F%A3%E5%9E%8B%E7%AB%99%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">5.2.</span> <span class="toc-text">web.0516jz.com-端口型站点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#goodlift-www-bbs-%E5%AD%90%E5%9F%9F%E5%90%8D%E4%B8%A4%E5%A5%97CMS"><span class="toc-number">5.3.</span> <span class="toc-text">goodlift-www.bbs-子域名两套CMS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jmlsd-cn-com-net%E7%AD%89-%E5%90%84%E7%A7%8D%E5%B8%B8%E8%A7%81%E5%9F%9F%E5%90%8D%E5%90%8E%E7%BC%80"><span class="toc-number">5.4.</span> <span class="toc-text">jmlsd-cn.com.net等-各种常见域名后缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#weipan-qqyewu-%E6%9F%A5%E8%AF%A2%E9%9D%B6%E5%9C%BA%E5%90%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%99%E7%82%B9"><span class="toc-number">5.5.</span> <span class="toc-text">weipan-qqyewu-查询靶场同服务器站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#weipan-phpstudy-%E6%9F%A5%E8%AF%A2%E7%89%B9%E5%AE%9A%E8%BD%AF%E4%BB%B6%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%AD%89"><span class="toc-number">5.6.</span> <span class="toc-text">weipan-phpstudy-查询特定软件中间件等</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wafw00f-shodan%EF%BC%88X-powered-BY%EF%BC%9AWAF%EF%BC%89%EF%BC%9A147-92-47-120"><span class="toc-number">5.7.</span> <span class="toc-text">wafw00f-shodan（X-powered-BY：WAF）：147.92.47.120</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E8%B5%84%E6%BA%90"><span class="toc-number">6.</span> <span class="toc-text">涉及资源</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8、信息收集-架构，搭建，WAF"/></a><div class="content"><a class="title" href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF">8、信息收集-架构，搭建，WAF</a><time datetime="2022-01-27T03:58:24.000Z" title="发表于 2022-01-27 11:58:24">2022-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="7、信息收集-CDN绕过技术"/></a><div class="content"><a class="title" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术">7、信息收集-CDN绕过技术</a><time datetime="2022-01-26T14:33:21.000Z" title="发表于 2022-01-26 22:33:21">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/20cf6262.html" title="6、基础入门-加密编码算法"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="6、基础入门-加密编码算法"/></a><div class="content"><a class="title" href="/post/20cf6262.html" title="6、基础入门-加密编码算法">6、基础入门-加密编码算法</a><time datetime="2022-01-26T11:42:03.000Z" title="发表于 2022-01-26 19:42:03">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/641f2e76.html" title="5、基础入门-系统及数据库等"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="5、基础入门-系统及数据库等"/></a><div class="content"><a class="title" href="/post/641f2e76.html" title="5、基础入门-系统及数据库等">5、基础入门-系统及数据库等</a><time datetime="2022-01-26T11:35:46.000Z" title="发表于 2022-01-26 19:35:46">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/335d859b.html" title="4、基础入门-WEB源码拓展"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="4、基础入门-WEB源码拓展"/></a><div class="content"><a class="title" href="/post/335d859b.html" title="4、基础入门-WEB源码拓展">4、基础入门-WEB源码拓展</a><time datetime="2022-01-26T11:21:41.000Z" title="发表于 2022-01-26 19:21:41">2022-01-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/680415.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mikasu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
