@@ -11,6 +11,16 @@
         <content type="html"><![CDATA[<h1 id="10、信息收集-资产监控拓展"><a href="#10、信息收集-资产监控拓展" class="headerlink" title="10、信息收集-资产监控拓展"></a>10、信息收集-资产监控拓展</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a><strong>概念</strong></h2><p><strong>POC</strong>：全称 ‘ Proof of Concept ‘，中文 ‘ 概念验证 ‘ ，常指一段漏洞证明的代码。</p><p><strong>EXP</strong>：全称 ‘ Exploit ‘，中文 ‘ 利用 ‘，指利用系统漏洞进行攻击的动作。</p><p><strong>Payload</strong>：中文 ‘ 有效载荷 ‘，指成功exploit之后，真正在目标系统执行的代码或指令。</p><p><strong>Shellcode</strong>：简单翻译 ‘ shell代码 ‘，是Payload的一种，由于其建立正向/反向shell而得名。</p><h2 id="几点注意"><a href="#几点注意" class="headerlink" title="几点注意"></a><strong>几点注意</strong></h2><p>POC是用来证明漏洞存在的，EXP是用来利用漏洞的，两者通常不是一类，或者说，PoC通常是无害的，Exp通常是有害的，有了POC，才有EXP。</p><p>Payload有很多种，它可以是Shellcode，也可以直接是一段系统命令。同一个Payload可以用于多个漏洞，但每个漏洞都有其自己的EXP，也就是说不存在通用的EXP。</p><p>Shellcode也有很多种，包括正向的，反向的，甚至meterpreter。</p><p>Shellcode与Shellshcok不是一个，Shellshock特指14年发现的Shellshock漏洞。</p><h2 id="Payload模块"><a href="#Payload模块" class="headerlink" title="Payload模块"></a><strong>Payload模块</strong></h2><p>在Metasploit Framework  6大模块中有一个Payload模块，在该模块下有Single、Stager、Stages这三种类型，Single是一个all-in-one的Payload，不依赖其他的文件，所以它的体积会比较大，Stager主要用于当目标计算机的内存有限时，可以先传输一个较小的Stager用于建立连接，Stages指利用Stager建立的连接下载后续的Payload。Stager和Stages都有多种类型，适用于不同场景。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>想象自己是一个特工，你的目标是监控一个重要的人，有一天你怀疑目标家里的窗子可能没有关，于是你上前推了推，结果推开了，这是一个POC。之后你回去了，开始准备第二天的渗透计划，第二天你通过同样的漏洞渗透进了它家，仔细查看了所有的重要文件，离开时还安装了一个隐蔽的窃听器，这一天你所做的就是一个EXP，你在他家所做的就是不同的Payload，就把窃听器当作Shellcode吧！</p><h1 id="Github监控"><a href="#Github监控" class="headerlink" title="Github监控"></a>Github监控</h1><p>1、便与收集整理最新exp或poc<br>2、便于发现相关测试目标的资产<br>3、如何使用（为什么用这个技术？一是官方的ctms是需要收费的，我们可以通过监控github来找到类似的源码，二是在github官网上有着最新的检测漏洞报告）</p><p>寻找域名：</p><ul><li>暴力破解，ping各种前缀的域名去测试</li><li>从主站提取，系统导航</li><li>站长工具备案信息、whois查询</li><li>ip反查域名</li></ul><h1 id="各种子域名查询"><a href="#各种子域名查询" class="headerlink" title="各种子域名查询"></a>各种子域名查询</h1><p><strong>DNS，备案，证书</strong></p><p><strong>全球节点请求cdn</strong></p><p><strong>枚举爆破或解析子域名对应</strong><br><strong>便于发现管理员相关的注册信息</strong></p><h1 id="黑暗引擎相关搜索"><a href="#黑暗引擎相关搜索" class="headerlink" title="黑暗引擎相关搜索"></a>黑暗引擎相关搜索</h1><p>fofa，shodan，zoomeye</p><h1 id="微信公众号接口获取"><a href="#微信公众号接口获取" class="headerlink" title="微信公众号接口获取"></a>微信公众号接口获取</h1><p>做大大的公司，微信公众号或者微信小程序</p><p>社会工程学，加群慢慢套点信息</p><h1 id="内部群内部应用内部接口"><a href="#内部群内部应用内部接口" class="headerlink" title="内部群内部应用内部接口"></a>内部群内部应用内部接口</h1><p>ip查真实IP securitytrails查历史DNS记录 dnsdb.io查询 crt.sh查询证书</p><p><img src="https://i.loli.net/2021/09/17/7xIusa8dn12EM6h.png" alt="xmind"></p><h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="监控最新的EXP发布及其他"><a href="#监控最新的EXP发布及其他" class="headerlink" title="监控最新的EXP发布及其他"></a>监控最新的EXP发布及其他</h2><p>便与收集整理最新exp或poc<br>便于发现相关测试目标的资产</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Title: wechat push CVE-2020</span></span><br><span class="line"><span class="comment"># Date: 2020-5-9</span></span><br><span class="line"><span class="comment"># Exploit Author: weixiao9188</span></span><br><span class="line"><span class="comment"># Version: 4.0</span></span><br><span class="line"><span class="comment"># Tested on: Linux,windows</span></span><br><span class="line"><span class="comment"># coding:UTF-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">time_sleep = <span class="number">20</span> <span class="comment">#每隔20秒爬取一次</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3741.400 QQBrowser/10.5.3863.400&quot;</span>&#125;</span><br><span class="line">    <span class="comment">#判断文件是否存在</span></span><br><span class="line">    datas = []</span><br><span class="line">    response1=<span class="literal">None</span></span><br><span class="line">    response2=<span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(<span class="string">&quot;olddata.csv&quot;</span>):</span><br><span class="line">        <span class="comment">#如果文件存在则每次爬取10个</span></span><br><span class="line">        df = pd.read_csv(<span class="string">&quot;olddata.csv&quot;</span>, header=<span class="literal">None</span>)</span><br><span class="line">        datas = df.where(df.notnull(),<span class="literal">None</span>).values.tolist()<span class="comment">#将提取出来的数据中的nan转化为None</span></span><br><span class="line">        response1 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=CVE-2020&amp;sort=updated&amp;per_page=10&quot;</span>,</span><br><span class="line">                                 headers=headers)</span><br><span class="line">        response2 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=phpcms&amp;ssort=updated&amp;per_page=10&quot;</span>,</span><br><span class="line">                                 headers=headers)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#不存在爬取全部</span></span><br><span class="line">        datas = []</span><br><span class="line">        response1 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=CVE-2020&amp;sort=updated&amp;order=desc&quot;</span>,headers=headers)</span><br><span class="line">        response2 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=RCE&amp;ssort=updated&amp;order=desc&quot;</span>,headers=headers)</span><br><span class="line"></span><br><span class="line">    data1 = json.loads(response1.text)</span><br><span class="line">    data2 = json.loads(response2.text)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> [data1[<span class="string">&quot;items&quot;</span>],data2[<span class="string">&quot;items&quot;</span>]]:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> j:</span><br><span class="line">            s = &#123;<span class="string">&quot;name&quot;</span>:i[<span class="string">&#x27;name&#x27;</span>],<span class="string">&quot;html&quot;</span>:i[<span class="string">&#x27;html_url&#x27;</span>],<span class="string">&quot;description&quot;</span>:i[<span class="string">&#x27;description&#x27;</span>]&#125;</span><br><span class="line">            s1 =[i[<span class="string">&#x27;name&#x27;</span>],i[<span class="string">&#x27;html_url&#x27;</span>],i[<span class="string">&#x27;description&#x27;</span>]]</span><br><span class="line">            <span class="keyword">if</span> s1 <span class="keyword">not</span> <span class="keyword">in</span> datas:</span><br><span class="line">                <span class="comment">#print(s1)</span></span><br><span class="line">                <span class="comment">#print(datas)</span></span><br><span class="line">                params = &#123;</span><br><span class="line">                     <span class="string">&quot;text&quot;</span>:s[<span class="string">&quot;name&quot;</span>],</span><br><span class="line">                    <span class="string">&quot;desp&quot;</span>:<span class="string">&quot; 链接:&quot;</span>+<span class="built_in">str</span>(s[<span class="string">&quot;html&quot;</span>])+<span class="string">&quot;\n简介&quot;</span>+<span class="built_in">str</span>(s[<span class="string">&quot;description&quot;</span>])</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;当前推送为&quot;</span>+<span class="built_in">str</span>(s)+<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">                <span class="built_in">print</span>(params)</span><br><span class="line">                requests.get(<span class="string">&quot;https://sc.ftqq.com/xxxxx.send&quot;</span>,params=params,timeout=<span class="number">10</span>)</span><br><span class="line">                <span class="comment">#time.sleep(1)#以防推送太猛#，verify=False</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;推送完成!&quot;</span>)</span><br><span class="line">                datas.append(s1)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">                <span class="comment">#print(&quot;数据已处在!&quot;)</span></span><br><span class="line">    pd.DataFrame(datas).to_csv(<span class="string">&quot;olddata.csv&quot;</span>,header=<span class="literal">None</span>,index=<span class="literal">None</span>)</span><br><span class="line">    time.sleep(time_sleep)</span><br></pre></td></tr></table></figure><p><strong>如何使用？</strong></p><p>sc.ftqq.com</p><p>替换53行sckey</p><p>微信推送</p><h2 id="黑暗引擎实现域名端口等收集"><a href="#黑暗引擎实现域名端口等收集" class="headerlink" title="黑暗引擎实现域名端口等收集"></a>黑暗引擎实现域名端口等收集</h2><p>fofa</p><p>shodan</p><p>zoomeye</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210225200844864.png" alt="image-20210225200844864"></p><h2 id="全自动域名收集枚举优秀脚本使用"><a href="#全自动域名收集枚举优秀脚本使用" class="headerlink" title="全自动域名收集枚举优秀脚本使用"></a>全自动域名收集枚举优秀脚本使用</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">以xxxx为例，从标题，域名等收集</span><br><span class="line">以xxxx为例，全自动脚本使用收集</span><br></pre></td></tr></table></figure><p><strong>teemo</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip.exe install requirements.txt</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210225201536491.png" alt="image-20210225201536491"></p><p>或使用<strong>layer子域名挖掘机</strong>直接进行扫描</p><p><a href="https://blog.csdn.net/weixin_39986952/article/details/84794537">Windows下python2和python3的共存设置</a></p><h2 id="SRC目标中的信息收集全覆盖"><a href="#SRC目标中的信息收集全覆盖" class="headerlink" title="SRC目标中的信息收集全覆盖"></a>SRC目标中的信息收集全覆盖</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">补天上专属SRC上简易测试</span><br></pre></td></tr></table></figure><p>结合fofa引擎搜索，查看端口对应的服务版本，在结合github爬虫找相关漏洞信息</p><h2 id="利用其他第三方接口获取更多信息"><a href="#利用其他第三方接口获取更多信息" class="headerlink" title="利用其他第三方接口获取更多信息"></a>利用其他第三方接口获取更多信息</h2><p>ip查真实IP securitytrails查历史DNS记录 dnsdb.io查询 crt.sh查询证书</p><pre><code>网站证书查询-crt.shDNS历史查询-dnsdb.io（收费）ipip全球ping（收费）DNS历史查询-securitytrails</code></pre><h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p>查证书：<a href="https://crt.sh/">https://crt.sh</a></p><p><a href="https://dnsdb.io/">https://dnsdb.io</a></p><p><a href="https://sc.ftqq.com/3.version">https://sc.ftqq.com/3.version</a></p><p>超级ping：<a href="https://tools.ipip.net/cdn.php">https://tools.ipip.net/cdn.php</a></p><p><a href="https://github.com/bit4woo/teemo">https://github.com/bit4woo/teemo</a></p><p><a href="https://securitytrails.com/domain/www.baidu.com/history/a">https://securitytrails.com/domain/www.baidu.com/history/a</a></p>]]></content>
       
       
+      <categories>
+          
+          <category> 学习笔记 </category>
+          
+          <category> 渗透测试 </category>
+          
+          <category> 信息收集 </category>
+          
+      </categories>
+      
       
         <tags>
             
@@ -304,9 +314,9 @@
       
         <tags>
             
-            <tag> dvwa </tag>
-            
             <tag> xss </tag>
+            
+            <tag> dvwa </tag>
             
         </tags>
       
@@ -335,9 +345,9 @@
       
         <tags>
             
-            <tag> dvwa </tag>
-            
             <tag> xss </tag>
+            
+            <tag> dvwa </tag>
             
         </tags>
       
@@ -366,9 +376,9 @@
       
         <tags>
             
-            <tag> dvwa </tag>
-            
             <tag> xss </tag>
+            
+            <tag> dvwa </tag>
             
         </tags>
       
@@ -459,9 +469,9 @@
       
         <tags>
             
-            <tag> 命令执行 </tag>
-            
             <tag> dvwa </tag>
+            
+            <tag> 命令执行 </tag>
             
         </tags>
       
@@ -787,9 +797,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> 环境配置 </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
