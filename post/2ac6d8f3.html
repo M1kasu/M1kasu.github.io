@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>10、信息收集-资产监控拓展 | Mikasu's Blog</title><meta name="keywords" content="信息收集"><meta name="author" content="Mikasu,1967458972@qq.com"><meta name="copyright" content="Mikasu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referer" content="no-referer"><meta name="description" content="10、信息收集-资产监控拓展概念POC：全称 ‘ Proof of Concept ‘，中文 ‘ 概念验证 ‘ ，常指一段漏洞证明的代码。 EXP：全称 ‘ Exploit ‘，中文 ‘ 利用 ‘，指利用系统漏洞进行攻击的动作。 Payload：中文 ‘ 有效载荷 ‘，指成功exploit之后，真正在目标系统执行的代码或指令。 Shellcode：简单翻译 ‘ shell代码 ‘，是Payload">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10、信息收集-资产监控拓展">
+<meta property="og:url" content="https://www.yuyapeng.cn/post/2ac6d8f3.html">
+<meta property="og:site_name" content="Mikasu&#39;s Blog">
+<meta property="og:description" content="10、信息收集-资产监控拓展概念POC：全称 ‘ Proof of Concept ‘，中文 ‘ 概念验证 ‘ ，常指一段漏洞证明的代码。 EXP：全称 ‘ Exploit ‘，中文 ‘ 利用 ‘，指利用系统漏洞进行攻击的动作。 Payload：中文 ‘ 有效载荷 ‘，指成功exploit之后，真正在目标系统执行的代码或指令。 Shellcode：简单翻译 ‘ shell代码 ‘，是Payload">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/765712.jpg">
+<meta property="article:published_time" content="2022-01-28T12:43:48.000Z">
+<meta property="article:modified_time" content="2022-01-28T13:52:02.431Z">
+<meta property="article:author" content="Mikasu">
+<meta property="article:tag" content="信息收集">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/littlefiremonkey/picture/raw/master/765712.jpg"><link rel="shortcut icon" href="https://gitee.com/littlefiremonkey/picture/raw/master/index.png"><link rel="canonical" href="https://www.yuyapeng.cn/post/2ac6d8f3"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '10、信息收集-资产监控拓展',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-28 21:52:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/765712.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mikasu's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-rizhi1"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">10、信息收集-资产监控拓展</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-28T12:43:48.000Z" title="发表于 2022-01-28 20:43:48">2022-01-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-28T13:52:02.431Z" title="更新于 2022-01-28 21:52:02">2022-01-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="10、信息收集-资产监控拓展"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="10、信息收集-资产监控拓展"><a href="#10、信息收集-资产监控拓展" class="headerlink" title="10、信息收集-资产监控拓展"></a>10、信息收集-资产监控拓展</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a><strong>概念</strong></h2><p><strong>POC</strong>：全称 ‘ Proof of Concept ‘，中文 ‘ 概念验证 ‘ ，常指一段漏洞证明的代码。</p>
+<p><strong>EXP</strong>：全称 ‘ Exploit ‘，中文 ‘ 利用 ‘，指利用系统漏洞进行攻击的动作。</p>
+<p><strong>Payload</strong>：中文 ‘ 有效载荷 ‘，指成功exploit之后，真正在目标系统执行的代码或指令。</p>
+<p><strong>Shellcode</strong>：简单翻译 ‘ shell代码 ‘，是Payload的一种，由于其建立正向/反向shell而得名。</p>
+<h2 id="几点注意"><a href="#几点注意" class="headerlink" title="几点注意"></a><strong>几点注意</strong></h2><p>POC是用来证明漏洞存在的，EXP是用来利用漏洞的，两者通常不是一类，或者说，PoC通常是无害的，Exp通常是有害的，有了POC，才有EXP。</p>
+<p>Payload有很多种，它可以是Shellcode，也可以直接是一段系统命令。同一个Payload可以用于多个漏洞，但每个漏洞都有其自己的EXP，也就是说不存在通用的EXP。</p>
+<p>Shellcode也有很多种，包括正向的，反向的，甚至meterpreter。</p>
+<p>Shellcode与Shellshcok不是一个，Shellshock特指14年发现的Shellshock漏洞。</p>
+<h2 id="Payload模块"><a href="#Payload模块" class="headerlink" title="Payload模块"></a><strong>Payload模块</strong></h2><p>在Metasploit Framework  6大模块中有一个Payload模块，在该模块下有Single、Stager、Stages这三种类型，Single是一个all-in-one的Payload，不依赖其他的文件，所以它的体积会比较大，Stager主要用于当目标计算机的内存有限时，可以先传输一个较小的Stager用于建立连接，Stages指利用Stager建立的连接下载后续的Payload。Stager和Stages都有多种类型，适用于不同场景。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>想象自己是一个特工，你的目标是监控一个重要的人，有一天你怀疑目标家里的窗子可能没有关，于是你上前推了推，结果推开了，这是一个POC。之后你回去了，开始准备第二天的渗透计划，第二天你通过同样的漏洞渗透进了它家，仔细查看了所有的重要文件，离开时还安装了一个隐蔽的窃听器，这一天你所做的就是一个EXP，你在他家所做的就是不同的Payload，就把窃听器当作Shellcode吧！</p>
+<h1 id="Github监控"><a href="#Github监控" class="headerlink" title="Github监控"></a>Github监控</h1><p>1、便与收集整理最新exp或poc<br>2、便于发现相关测试目标的资产<br>3、如何使用（为什么用这个技术？一是官方的ctms是需要收费的，我们可以通过监控github来找到类似的源码，二是在github官网上有着最新的检测漏洞报告）</p>
+<p>寻找域名：</p>
+<ul>
+<li>暴力破解，ping各种前缀的域名去测试</li>
+<li>从主站提取，系统导航</li>
+<li>站长工具备案信息、whois查询</li>
+<li>ip反查域名</li>
+</ul>
+<h1 id="各种子域名查询"><a href="#各种子域名查询" class="headerlink" title="各种子域名查询"></a>各种子域名查询</h1><p><strong>DNS，备案，证书</strong></p>
+<p><strong>全球节点请求cdn</strong></p>
+<p><strong>枚举爆破或解析子域名对应</strong><br><strong>便于发现管理员相关的注册信息</strong></p>
+<h1 id="黑暗引擎相关搜索"><a href="#黑暗引擎相关搜索" class="headerlink" title="黑暗引擎相关搜索"></a>黑暗引擎相关搜索</h1><p>fofa，shodan，zoomeye</p>
+<h1 id="微信公众号接口获取"><a href="#微信公众号接口获取" class="headerlink" title="微信公众号接口获取"></a>微信公众号接口获取</h1><p>做大大的公司，微信公众号或者微信小程序</p>
+<p>社会工程学，加群慢慢套点信息</p>
+<h1 id="内部群内部应用内部接口"><a href="#内部群内部应用内部接口" class="headerlink" title="内部群内部应用内部接口"></a>内部群内部应用内部接口</h1><p>ip查真实IP securitytrails查历史DNS记录 dnsdb.io查询 crt.sh查询证书</p>
+<p><img src="https://i.loli.net/2021/09/17/7xIusa8dn12EM6h.png" alt="xmind"></p>
+<h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="监控最新的EXP发布及其他"><a href="#监控最新的EXP发布及其他" class="headerlink" title="监控最新的EXP发布及其他"></a>监控最新的EXP发布及其他</h2><p>便与收集整理最新exp或poc<br>便于发现相关测试目标的资产</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Title: wechat push CVE-2020</span></span><br><span class="line"><span class="comment"># Date: 2020-5-9</span></span><br><span class="line"><span class="comment"># Exploit Author: weixiao9188</span></span><br><span class="line"><span class="comment"># Version: 4.0</span></span><br><span class="line"><span class="comment"># Tested on: Linux,windows</span></span><br><span class="line"><span class="comment"># coding:UTF-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">time_sleep = <span class="number">20</span> <span class="comment">#每隔20秒爬取一次</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3741.400 QQBrowser/10.5.3863.400&quot;</span>&#125;</span><br><span class="line">    <span class="comment">#判断文件是否存在</span></span><br><span class="line">    datas = []</span><br><span class="line">    response1=<span class="literal">None</span></span><br><span class="line">    response2=<span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(<span class="string">&quot;olddata.csv&quot;</span>):</span><br><span class="line">        <span class="comment">#如果文件存在则每次爬取10个</span></span><br><span class="line">        df = pd.read_csv(<span class="string">&quot;olddata.csv&quot;</span>, header=<span class="literal">None</span>)</span><br><span class="line">        datas = df.where(df.notnull(),<span class="literal">None</span>).values.tolist()<span class="comment">#将提取出来的数据中的nan转化为None</span></span><br><span class="line">        response1 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=CVE-2020&amp;sort=updated&amp;per_page=10&quot;</span>,</span><br><span class="line">                                 headers=headers)</span><br><span class="line">        response2 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=phpcms&amp;ssort=updated&amp;per_page=10&quot;</span>,</span><br><span class="line">                                 headers=headers)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#不存在爬取全部</span></span><br><span class="line">        datas = []</span><br><span class="line">        response1 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=CVE-2020&amp;sort=updated&amp;order=desc&quot;</span>,headers=headers)</span><br><span class="line">        response2 = requests.get(url=<span class="string">&quot;https://api.github.com/search/repositories?q=RCE&amp;ssort=updated&amp;order=desc&quot;</span>,headers=headers)</span><br><span class="line"></span><br><span class="line">    data1 = json.loads(response1.text)</span><br><span class="line">    data2 = json.loads(response2.text)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> [data1[<span class="string">&quot;items&quot;</span>],data2[<span class="string">&quot;items&quot;</span>]]:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> j:</span><br><span class="line">            s = &#123;<span class="string">&quot;name&quot;</span>:i[<span class="string">&#x27;name&#x27;</span>],<span class="string">&quot;html&quot;</span>:i[<span class="string">&#x27;html_url&#x27;</span>],<span class="string">&quot;description&quot;</span>:i[<span class="string">&#x27;description&#x27;</span>]&#125;</span><br><span class="line">            s1 =[i[<span class="string">&#x27;name&#x27;</span>],i[<span class="string">&#x27;html_url&#x27;</span>],i[<span class="string">&#x27;description&#x27;</span>]]</span><br><span class="line">            <span class="keyword">if</span> s1 <span class="keyword">not</span> <span class="keyword">in</span> datas:</span><br><span class="line">                <span class="comment">#print(s1)</span></span><br><span class="line">                <span class="comment">#print(datas)</span></span><br><span class="line">                params = &#123;</span><br><span class="line">                     <span class="string">&quot;text&quot;</span>:s[<span class="string">&quot;name&quot;</span>],</span><br><span class="line">                    <span class="string">&quot;desp&quot;</span>:<span class="string">&quot; 链接:&quot;</span>+<span class="built_in">str</span>(s[<span class="string">&quot;html&quot;</span>])+<span class="string">&quot;\n简介&quot;</span>+<span class="built_in">str</span>(s[<span class="string">&quot;description&quot;</span>])</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;当前推送为&quot;</span>+<span class="built_in">str</span>(s)+<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">                <span class="built_in">print</span>(params)</span><br><span class="line">                requests.get(<span class="string">&quot;https://sc.ftqq.com/xxxxx.send&quot;</span>,params=params,timeout=<span class="number">10</span>)</span><br><span class="line">                <span class="comment">#time.sleep(1)#以防推送太猛#，verify=False</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;推送完成!&quot;</span>)</span><br><span class="line">                datas.append(s1)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">                <span class="comment">#print(&quot;数据已处在!&quot;)</span></span><br><span class="line">    pd.DataFrame(datas).to_csv(<span class="string">&quot;olddata.csv&quot;</span>,header=<span class="literal">None</span>,index=<span class="literal">None</span>)</span><br><span class="line">    time.sleep(time_sleep)</span><br></pre></td></tr></table></figure>
+
+<p><strong>如何使用？</strong></p>
+<p>sc.ftqq.com</p>
+<p>替换53行sckey</p>
+<p>微信推送</p>
+<h2 id="黑暗引擎实现域名端口等收集"><a href="#黑暗引擎实现域名端口等收集" class="headerlink" title="黑暗引擎实现域名端口等收集"></a>黑暗引擎实现域名端口等收集</h2><p>fofa</p>
+<p>shodan</p>
+<p>zoomeye</p>
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210225200844864.png" alt="image-20210225200844864"></p>
+<h2 id="全自动域名收集枚举优秀脚本使用"><a href="#全自动域名收集枚举优秀脚本使用" class="headerlink" title="全自动域名收集枚举优秀脚本使用"></a>全自动域名收集枚举优秀脚本使用</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">以xxxx为例，从标题，域名等收集</span><br><span class="line">以xxxx为例，全自动脚本使用收集</span><br></pre></td></tr></table></figure>
+
+<p><strong>teemo</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip.exe install requirements.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210225201536491.png" alt="image-20210225201536491"></p>
+<p>或使用<strong>layer子域名挖掘机</strong>直接进行扫描</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39986952/article/details/84794537">Windows下python2和python3的共存设置</a></p>
+<h2 id="SRC目标中的信息收集全覆盖"><a href="#SRC目标中的信息收集全覆盖" class="headerlink" title="SRC目标中的信息收集全覆盖"></a>SRC目标中的信息收集全覆盖</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">补天上专属SRC上简易测试</span><br></pre></td></tr></table></figure>
+
+<p>结合fofa引擎搜索，查看端口对应的服务版本，在结合github爬虫找相关漏洞信息</p>
+<h2 id="利用其他第三方接口获取更多信息"><a href="#利用其他第三方接口获取更多信息" class="headerlink" title="利用其他第三方接口获取更多信息"></a>利用其他第三方接口获取更多信息</h2><p>ip查真实IP securitytrails查历史DNS记录 dnsdb.io查询 crt.sh查询证书</p>
+<pre><code>网站证书查询-crt.sh
+DNS历史查询-dnsdb.io（收费）
+ipip全球ping（收费）
+DNS历史查询-securitytrails
+</code></pre>
+<h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p>查证书：<a target="_blank" rel="noopener" href="https://crt.sh/">https://crt.sh</a></p>
+<p><a target="_blank" rel="noopener" href="https://dnsdb.io/">https://dnsdb.io</a></p>
+<p><a target="_blank" rel="noopener" href="https://sc.ftqq.com/3.version">https://sc.ftqq.com/3.version</a></p>
+<p>超级ping：<a target="_blank" rel="noopener" href="https://tools.ipip.net/cdn.php">https://tools.ipip.net/cdn.php</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/bit4woo/teemo">https://github.com/bit4woo/teemo</a></p>
+<p><a target="_blank" rel="noopener" href="https://securitytrails.com/domain/www.baidu.com/history/a">https://securitytrails.com/domain/www.baidu.com/history/a</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1967458972@qq.com">Mikasu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.yuyapeng.cn/post/2ac6d8f3.html">https://www.yuyapeng.cn/post/2ac6d8f3.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.yuyapeng.cn" target="_blank">Mikasu's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">信息收集</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/littlefiremonkey/picture/raw/master/765712.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/ec56e6a5.html"><img class="next-cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">9、信息收集-APP及其他资产等</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/432aa293.html" title="7、信息收集-CDN绕过技术"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/672183.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-26</div><div class="title">7、信息收集-CDN绕过技术</div></div></a></div><div><a href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/672183.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-27</div><div class="title">8、信息收集-架构，搭建，WAF</div></div></a></div><div><a href="/post/ec56e6a5.html" title="9、信息收集-APP及其他资产等"><img class="cover" src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-28</div><div class="title">9、信息收集-APP及其他资产等</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/thumb-92262.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mikasu</div><div class="author-info__description">大三学生，CTFer</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/M1kasu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/M1kasu" target="_blank" title=""><i class="iconfont  icon-github"></i></a><a class="social-icon" href="https://space.bilibili.com/399414396/" target="_blank" title=""><i class="iconfont  icon-bilibili"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1967458972" target="_blank" title=""><i class="iconfont icon-qq"></i></a><a class="social-icon" href="mailto:1967458972@qq.com" target="_blank" title=""><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://blog.csdn.net/memery_key" target="_blank" title=""><i class="iconfont icon-csdn"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问小站，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#10%E3%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E8%B5%84%E4%BA%A7%E7%9B%91%E6%8E%A7%E6%8B%93%E5%B1%95"><span class="toc-number">1.</span> <span class="toc-text">10、信息收集-资产监控拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E7%82%B9%E6%B3%A8%E6%84%8F"><span class="toc-number">1.2.</span> <span class="toc-text">几点注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Payload%E6%A8%A1%E5%9D%97"><span class="toc-number">1.3.</span> <span class="toc-text">Payload模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Github%E7%9B%91%E6%8E%A7"><span class="toc-number">2.</span> <span class="toc-text">Github监控</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E5%AD%90%E5%9F%9F%E5%90%8D%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.</span> <span class="toc-text">各种子域名查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%BB%91%E6%9A%97%E5%BC%95%E6%93%8E%E7%9B%B8%E5%85%B3%E6%90%9C%E7%B4%A2"><span class="toc-number">4.</span> <span class="toc-text">黑暗引擎相关搜索</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%8E%A5%E5%8F%A3%E8%8E%B7%E5%8F%96"><span class="toc-number">5.</span> <span class="toc-text">微信公众号接口获取</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%BE%A4%E5%86%85%E9%83%A8%E5%BA%94%E7%94%A8%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3"><span class="toc-number">6.</span> <span class="toc-text">内部群内部应用内部接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E6%A1%88%E4%BE%8B"><span class="toc-number">7.</span> <span class="toc-text">演示案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%91%E6%8E%A7%E6%9C%80%E6%96%B0%E7%9A%84EXP%E5%8F%91%E5%B8%83%E5%8F%8A%E5%85%B6%E4%BB%96"><span class="toc-number">7.1.</span> <span class="toc-text">监控最新的EXP发布及其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%91%E6%9A%97%E5%BC%95%E6%93%8E%E5%AE%9E%E7%8E%B0%E5%9F%9F%E5%90%8D%E7%AB%AF%E5%8F%A3%E7%AD%89%E6%94%B6%E9%9B%86"><span class="toc-number">7.2.</span> <span class="toc-text">黑暗引擎实现域名端口等收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E8%87%AA%E5%8A%A8%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86%E6%9E%9A%E4%B8%BE%E4%BC%98%E7%A7%80%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">7.3.</span> <span class="toc-text">全自动域名收集枚举优秀脚本使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SRC%E7%9B%AE%E6%A0%87%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E5%85%A8%E8%A6%86%E7%9B%96"><span class="toc-number">7.4.</span> <span class="toc-text">SRC目标中的信息收集全覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%85%B6%E4%BB%96%E7%AC%AC%E4%B8%89%E6%96%B9%E6%8E%A5%E5%8F%A3%E8%8E%B7%E5%8F%96%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF"><span class="toc-number">7.5.</span> <span class="toc-text">利用其他第三方接口获取更多信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E8%B5%84%E6%BA%90"><span class="toc-number">8.</span> <span class="toc-text">涉及资源</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/2ac6d8f3.html" title="10、信息收集-资产监控拓展"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/765712.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="10、信息收集-资产监控拓展"/></a><div class="content"><a class="title" href="/post/2ac6d8f3.html" title="10、信息收集-资产监控拓展">10、信息收集-资产监控拓展</a><time datetime="2022-01-28T12:43:48.000Z" title="发表于 2022-01-28 20:43:48">2022-01-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/ec56e6a5.html" title="9、信息收集-APP及其他资产等"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/962176.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="9、信息收集-APP及其他资产等"/></a><div class="content"><a class="title" href="/post/ec56e6a5.html" title="9、信息收集-APP及其他资产等">9、信息收集-APP及其他资产等</a><time datetime="2022-01-28T07:58:37.000Z" title="发表于 2022-01-28 15:58:37">2022-01-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/672183.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8、信息收集-架构，搭建，WAF"/></a><div class="content"><a class="title" href="/post/e85e877e.html" title="8、信息收集-架构，搭建，WAF">8、信息收集-架构，搭建，WAF</a><time datetime="2022-01-27T03:58:24.000Z" title="发表于 2022-01-27 11:58:24">2022-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/672183.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="7、信息收集-CDN绕过技术"/></a><div class="content"><a class="title" href="/post/432aa293.html" title="7、信息收集-CDN绕过技术">7、信息收集-CDN绕过技术</a><time datetime="2022-01-26T14:33:21.000Z" title="发表于 2022-01-26 22:33:21">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/20cf6262.html" title="6、基础入门-加密编码算法"><img src="https://gitee.com/littlefiremonkey/picture/raw/master/182834.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="6、基础入门-加密编码算法"/></a><div class="content"><a class="title" href="/post/20cf6262.html" title="6、基础入门-加密编码算法">6、基础入门-加密编码算法</a><time datetime="2022-01-26T11:42:03.000Z" title="发表于 2022-01-26 19:42:03">2022-01-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/littlefiremonkey/picture/raw/master/765712.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mikasu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
