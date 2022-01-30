@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/post/9d686209.html</loc>
+    <loc>https://www.yuyapeng.cn/post/89afe0b3.html</loc>
     
     <lastmod>2022-01-30</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/post/89afe0b3.html</loc>
+    <loc>https://www.yuyapeng.cn/post/9d686209.html</loc>
     
     <lastmod>2022-01-30</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/post/57124f4e.html</loc>
+    <loc>https://www.yuyapeng.cn/post/576d25d8.html</loc>
     
     <lastmod>2022-01-25</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/post/576d25d8.html</loc>
+    <loc>https://www.yuyapeng.cn/post/57124f4e.html</loc>
     
     <lastmod>2022-01-25</lastmod>
     
@@ -432,6 +432,13 @@
   </url>
   
   <url>
+    <loc>https://www.yuyapeng.cn/tags/WEB%E6%BC%8F%E6%B4%9E/</loc>
+    <lastmod>2022-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.yuyapeng.cn/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -454,13 +461,6 @@
   
   <url>
     <loc>https://www.yuyapeng.cn/tags/dvwa/</loc>
-    <lastmod>2022-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.yuyapeng.cn/tags/WEB%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -567,6 +567,13 @@
   </url>
   
   <url>
+    <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/WEB%E6%BC%8F%E6%B4%9E/</loc>
+    <lastmod>2022-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -575,13 +582,6 @@
   
   <url>
     <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%BC%8F%E6%B4%9E%E9%9D%B6%E5%9C%BA/DVWA/</loc>
-    <lastmod>2022-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/WEB%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
