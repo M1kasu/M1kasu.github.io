@@ -245,15 +245,6 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/post/a1d73a0e.html</loc>
-    
-    <lastmod>2022-01-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.yuyapeng.cn/post/8b1b03b8.html</loc>
     
     <lastmod>2022-01-25</lastmod>
@@ -263,7 +254,7 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/post/b6e5b7f3.html</loc>
+    <loc>https://www.yuyapeng.cn/post/a1d73a0e.html</loc>
     
     <lastmod>2022-01-25</lastmod>
     
@@ -273,6 +264,15 @@
   
   <url>
     <loc>https://www.yuyapeng.cn/post/2468b75d.html</loc>
+    
+    <lastmod>2022-01-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.yuyapeng.cn/post/b6e5b7f3.html</loc>
     
     <lastmod>2022-01-25</lastmod>
     
@@ -376,6 +376,27 @@
   </url>
   
   <url>
+    <loc>https://www.yuyapeng.cn/tags/Java/</loc>
+    <lastmod>2022-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.yuyapeng.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2022-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.yuyapeng.cn/tags/python/</loc>
+    <lastmod>2022-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.yuyapeng.cn/tags/typora/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -397,28 +418,7 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/tags/Java/</loc>
-    <lastmod>2022-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.yuyapeng.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2022-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.yuyapeng.cn/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
-    <lastmod>2022-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.yuyapeng.cn/tags/python/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -518,14 +518,14 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/categories/Hexo/</loc>
+    <loc>https://www.yuyapeng.cn/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    <loc>https://www.yuyapeng.cn/categories/Hexo/</loc>
     <lastmod>2022-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
