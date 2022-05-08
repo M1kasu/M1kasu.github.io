@@ -441,6 +441,13 @@
   </url>
   
   <url>
+    <loc>https://www.yuyapeng.cn/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</loc>
+    <lastmod>2022-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.yuyapeng.cn/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -449,13 +456,6 @@
   
   <url>
     <loc>https://www.yuyapeng.cn/tags/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</loc>
-    <lastmod>2022-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.yuyapeng.cn/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</loc>
     <lastmod>2022-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -576,14 +576,14 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</loc>
+    <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</loc>
     <lastmod>2022-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</loc>
+    <loc>https://www.yuyapeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2022-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
