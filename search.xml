@@ -482,9 +482,9 @@
       
         <tags>
             
-            <tag> xss </tag>
-            
             <tag> dvwa </tag>
+            
+            <tag> xss </tag>
             
         </tags>
       
@@ -513,9 +513,9 @@
       
         <tags>
             
-            <tag> xss </tag>
-            
             <tag> dvwa </tag>
+            
+            <tag> xss </tag>
             
         </tags>
       
@@ -544,9 +544,9 @@
       
         <tags>
             
-            <tag> xss </tag>
-            
             <tag> dvwa </tag>
+            
+            <tag> xss </tag>
             
         </tags>
       
@@ -637,9 +637,9 @@
       
         <tags>
             
-            <tag> dvwa </tag>
-            
             <tag> 命令执行 </tag>
+            
+            <tag> dvwa </tag>
             
         </tags>
       
@@ -762,7 +762,7 @@
       <link href="/post/8b1b03b8.html"/>
       <url>/post/8b1b03b8.html</url>
       
-        <content type="html"><![CDATA[<h1 id="vmware16安装"><a href="#vmware16安装" class="headerlink" title="vmware16安装"></a>vmware16安装</h1><h2 id="1、开始安装前需要准备好的软件"><a href="#1、开始安装前需要准备好的软件" class="headerlink" title="1、开始安装前需要准备好的软件"></a>1、开始安装前需要准备好的软件</h2><p>VMware-workstation-full-16——虚拟机软件（必要）</p><p>　　<strong>获取方式：</strong></p><p>　　官方下载地址：<a href="https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html">https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html</a></p><p>　　百度网盘下载地址：<a href="https://pan.baidu.com/s/1ri4rG32LqakbS6gv_YiA8w">https://pan.baidu.com/s/1ri4rG32LqakbS6gv_YiA8w</a>　　提取码：bkul</p><p>　　<strong>激活码</strong>：ZF3R0-FHED2-M80TY-8QYGC-NPKYF</p><p>　　　　　　YF390-0HF8P-M81RQ-2DXQE-M2UT6</p><p>　　　　　　ZF71R-DMX85-08DQY-8YMNC-PPHV8 </p><p>　　　　　　FA1M0-89YE3-081TQ-AFNX9-NKUC0</p><h2 id="2、安装VMware虚拟机"><a href="#2、安装VMware虚拟机" class="headerlink" title="2、安装VMware虚拟机"></a>2、安装VMware虚拟机</h2><p>　　第1步：双击上面准备好的Vmware Workstation 16虚拟机软件安装包，即可看到如图所示的安装向导初始界面，大约需要5-10秒时间。</p><p>　　　　<img src="https://s3.bmp.ovh/imgs/2022/05/08/a11a796a0f57c274.png" alt="img"></p><p>　　第2步：在虚拟机软件的安装向导界面点击“下一步”按钮，如图所示：</p><p><img src="https://s3.bmp.ovh/imgs/2022/05/08/35d6dd81467504bb.png" alt="image-20211228093307611"></p><p>　　第3步：在最终用户许可协议界面中勾中“我接受许可协议中的条款”选项框，然后点击“下一步”按钮，如图所示：</p><p> 　　　<img src="https://s3.bmp.ovh/imgs/2022/05/08/fb21ce4082689cad.png" alt="img"></p><p> 　第4步：自定义虚拟机软件的安装路径（根据自己的实际情况选择安装位置，建议不要有中文路径，避免出现奇奇怪怪的报错问题），<strong>默认情况下是安装在C盘，建议改盘符，不然你的C盘不就就满了</strong>。然后勾选“增强型键盘驱动程序”选项框后单击“下一步”按钮，如图所示：</p><p>　　　　 <img src="https://s3.bmp.ovh/imgs/2022/05/08/f8df421c36fb4a19.png" alt="img"></p><p>　　第5步：根据自身情况适当选择“启动时检查产品更新”与“加入VMware客户体验提升计划”选项框，<strong>我建议不选</strong>。然后单击“下一步”按钮，如图所示：</p><p>　　　　 <img src="https://s3.bmp.ovh/imgs/2022/05/08/fcd51c093836b4dd.png" alt="img"></p><p>　　第6步：为了方便今后更便捷使用VMware虚拟机软件，建议选中创建“桌面”与“开始菜单程序文件夹”选项框，然后单击“下一步”按钮，如图所示：</p><p> 　　　<img src="upload/image-20220508160849556.png" alt="image-20220508160849556"></p><p>　　第7步：准备就绪后，单击“安装”按钮，如图所示：</p><p> 　　　<img src="https://gitee.com/littlefiremonkey/picture/raw/master/2418565-20210603124730577-289912812.png" alt="img"></p><p>　　第8步：进入安装过程中，此时要做的就是耐心等待虚拟机软件安装完成，全程大约3分钟左右，如图所示：</p><p>　<img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20211228093238127.png" alt="image-20211228093238127"></p><p>　　第9步：虚拟机软件安装完成，此时单击“完成”按钮，便结束了安装工作，如图所示。</p><p>　　　　 <img src="https://gitee.com/littlefiremonkey/picture/raw/master/2418565-20210603124933767-128106189.png" alt="img"></p><p>第10步：点击许可证，<strong>将之前准备好的秘钥复制进去，点击“继续”按钮</strong></p><p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20211228093112868.png" alt="image-20211228093112868"></p><p>第10步：询问您是否需要“立即重新启动”，根据自己当前情况选择是否立即重启。</p><p> 　　<img src="upload%5Cimage-20211228093211967.png" alt="image-20211228093211967"></p><p>　　第11步：再次在桌面上双击快捷方式图标，点击“帮助”，选择“关于VMware Workstation(A)”，如图所示，代表VMware Workstation 16已激活成功。</p><p>　<img src="upload/image-20220508161010533.png" alt="image-20220508161010533"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="vmware16安装"><a href="#vmware16安装" class="headerlink" title="vmware16安装"></a>vmware16安装</h1><h2 id="1、开始安装前需要准备好的软件"><a href="#1、开始安装前需要准备好的软件" class="headerlink" title="1、开始安装前需要准备好的软件"></a>1、开始安装前需要准备好的软件</h2><p>VMware-workstation-full-16——虚拟机软件（必要）</p><p>　　<strong>获取方式：</strong></p><p>　　官方下载地址：<a href="https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html">https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html</a></p><p>　　百度网盘下载地址：<a href="https://pan.baidu.com/s/1ri4rG32LqakbS6gv_YiA8w">https://pan.baidu.com/s/1ri4rG32LqakbS6gv_YiA8w</a>　　提取码：bkul</p><p>　　<strong>激活码</strong>：ZF3R0-FHED2-M80TY-8QYGC-NPKYF</p><p>　　　　　　YF390-0HF8P-M81RQ-2DXQE-M2UT6</p><p>　　　　　　ZF71R-DMX85-08DQY-8YMNC-PPHV8 </p><p>　　　　　　FA1M0-89YE3-081TQ-AFNX9-NKUC0</p><h2 id="2、安装VMware虚拟机"><a href="#2、安装VMware虚拟机" class="headerlink" title="2、安装VMware虚拟机"></a>2、安装VMware虚拟机</h2><p>　　第1步：双击上面准备好的Vmware Workstation 16虚拟机软件安装包，即可看到如图所示的安装向导初始界面，大约需要5-10秒时间。</p><p>　　　　<img src="https://s3.bmp.ovh/imgs/2022/05/08/a11a796a0f57c274.png" alt="img"></p><p>　　第2步：在虚拟机软件的安装向导界面点击“下一步”按钮，如图所示：</p><p><img src="https://s3.bmp.ovh/imgs/2022/05/08/35d6dd81467504bb.png" alt="image-20211228093307611"></p><p>　　第3步：在最终用户许可协议界面中勾中“我接受许可协议中的条款”选项框，然后点击“下一步”按钮，如图所示：</p><p> 　　　<img src="https://s3.bmp.ovh/imgs/2022/05/08/fb21ce4082689cad.png" alt="img"></p><p> 　第4步：自定义虚拟机软件的安装路径（根据自己的实际情况选择安装位置，建议不要有中文路径，避免出现奇奇怪怪的报错问题），<strong>默认情况下是安装在C盘，建议改盘符，不然你的C盘不就就满了</strong>。然后勾选“增强型键盘驱动程序”选项框后单击“下一步”按钮，如图所示：</p><p>　　　　 <img src="https://s3.bmp.ovh/imgs/2022/05/08/f8df421c36fb4a19.png" alt="img"></p><p>　　第5步：根据自身情况适当选择“启动时检查产品更新”与“加入VMware客户体验提升计划”选项框，<strong>我建议不选</strong>。然后单击“下一步”按钮，如图所示：</p><p>　　　　 <img src="https://s3.bmp.ovh/imgs/2022/05/08/fcd51c093836b4dd.png" alt="img"></p><p>　　第6步：为了方便今后更便捷使用VMware虚拟机软件，建议选中创建“桌面”与“开始菜单程序文件夹”选项框，然后单击“下一步”按钮，如图所示：</p><p> 　　　<img src="https://cdn.jsdelivr.net/gh/M1kasu/picgo/img/image-20220508160849556.png" alt="image-20220508160849556"></p><p>　　第7步：准备就绪后，单击“安装”按钮，如图所示：</p><p> 　　　<img src="https://gitee.com/littlefiremonkey/picture/raw/master/2418565-20210603124730577-289912812.png" alt="img"></p><p>　　第8步：进入安装过程中，此时要做的就是耐心等待虚拟机软件安装完成，全程大约3分钟左右，如图所示：</p><p>　<img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20211228093238127.png" alt="image-20211228093238127"></p><p>　　第9步：虚拟机软件安装完成，此时单击“完成”按钮，便结束了安装工作，如图所示。</p><p>　　　　 <img src="https://gitee.com/littlefiremonkey/picture/raw/master/2418565-20210603124933767-128106189.png" alt="img"></p><p>第10步：点击许可证，<strong>将之前准备好的秘钥复制进去，点击“继续”按钮</strong></p><p><img src="https://gitee.com/littlefiremonkey/picture/raw/master/image-20211228093112868.png" alt="image-20211228093112868"></p><p>第10步：询问您是否需要“立即重新启动”，根据自己当前情况选择是否立即重启。</p><p> 　　<img src="upload%5Cimage-20211228093211967.png" alt="image-20211228093211967"></p><p>　　第11步：再次在桌面上双击快捷方式图标，点击“帮助”，选择“关于VMware Workstation(A)”，如图所示，代表VMware Workstation 16已激活成功。</p><p>　<img src="upload/image-20220508161010533.png" alt="image-20220508161010533"></p>]]></content>
       
       
       <categories>
