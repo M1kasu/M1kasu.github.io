@@ -538,6 +538,13 @@
   </url>
   
   <url>
+    <loc>https://www.yuyapeng.cn/tags/hexo/</loc>
+    <lastmod>2022-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.yuyapeng.cn/tags/typora/</loc>
     <lastmod>2022-05-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -546,13 +553,6 @@
   
   <url>
     <loc>https://www.yuyapeng.cn/tags/%E5%9B%BE%E5%BA%8A/</loc>
-    <lastmod>2022-05-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.yuyapeng.cn/tags/hexo/</loc>
     <lastmod>2022-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -580,6 +580,13 @@
   </url>
   
   <url>
+    <loc>https://www.yuyapeng.cn/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    <lastmod>2022-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.yuyapeng.cn/tags/Misc/</loc>
     <lastmod>2022-05-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -588,13 +595,6 @@
   
   <url>
     <loc>https://www.yuyapeng.cn/tags/ISCC2022/</loc>
-    <lastmod>2022-05-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.yuyapeng.cn/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2022-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -708,14 +708,14 @@
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/categories/CTF/Misc/</loc>
+    <loc>https://www.yuyapeng.cn/categories/CTF/CTF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2022-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.yuyapeng.cn/categories/CTF/CTF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    <loc>https://www.yuyapeng.cn/categories/CTF/Misc/</loc>
     <lastmod>2022-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
